@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hybrid Review Result",
+  "type": "object",
+  "required": [
+    "claim_id",
+    "baseline_result",
+    "candidate_result",
+    "differential_result",
+    "adversarial_result",
+    "reproducibility_result",
+    "overall_classification"
+  ],
+  "properties": {
+    "claim_id": {
+      "type": "string"
+    },
+    "baseline_result": {
+      "enum": ["PASS", "PARTIAL", "FAIL", "HOLD"]
+    },
+    "candidate_result": {
+      "enum": ["PASS", "PARTIAL", "FAIL", "HOLD"]
+    },
+    "differential_result": {
+      "enum": ["PASS", "PARTIAL", "FAIL", "HOLD"]
+    },
+    "adversarial_result": {
+      "enum": ["PASS", "PARTIAL", "FAIL", "HOLD"]
+    },
+    "reproducibility_result": {
+      "enum": ["PASS", "PARTIAL", "FAIL", "HOLD"]
+    },
+    "overall_classification": {
+      "enum": ["PASS", "PARTIAL", "FAIL", "HOLD"]
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

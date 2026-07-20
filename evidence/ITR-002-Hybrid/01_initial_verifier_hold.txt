@@ -1,0 +1,1 @@
+HOLD: Artifact selection remains HOLD. Missing manifest fields: name, repository, baseline_version, baseline_commit, candidate_version, candidate_commit

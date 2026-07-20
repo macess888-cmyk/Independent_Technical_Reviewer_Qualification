@@ -1,0 +1,33 @@
+{
+  "review_id": "ITR-002",
+  "review_type": "hybrid_differential_adversarial",
+  "reviewer": "Jake Macdonald",
+  "status": "artifact_selection_pending",
+  "artifact": {
+    "name": null,
+    "repository": null,
+    "baseline_version": null,
+    "baseline_commit": null,
+    "candidate_version": null,
+    "candidate_commit": null
+  },
+  "independence": {
+    "reviewer_authored_artifact": false,
+    "reviewer_contributed_to_artifact": false,
+    "reviewer_authored_claims": false,
+    "reviewer_defined_release_scope": false
+  },
+  "required_layers": [
+    "claim_confirmation",
+    "baseline_discrimination",
+    "differential_proof",
+    "adversarial_challenge",
+    "reproducible_carrier"
+  ],
+  "classification_vocabulary": [
+    "PASS",
+    "PARTIAL",
+    "FAIL",
+    "HOLD"
+  ]
+}
