@@ -1,0 +1,62 @@
+tests\test_algorithms.py:738:    (https://tools.ietf.org/html/rfc7520)
+tests\test_algorithms.py:746:        Reference: https://tools.ietf.org/html/rfc7520#section-4.4
+tests\test_algorithms.py:770:        Reference: https://tools.ietf.org/html/rfc7520#section-4.1
+tests\test_algorithms.py:801:        Reference: https://tools.ietf.org/html/rfc7520#section-4.2
+tests\test_algorithms.py:832:        Reference: https://tools.ietf.org/html/rfc7520#section-4.3
+tests\test_api_jws.py:878:          "iss": "https://scim.example.com",
+tests\test_api_jws.py:882:            "https://scim.example.com/Feeds/98d52461fa5bbc879593b7754",
+tests\test_api_jws.py:883:            "https://scim.example.com/Feeds/5d7604516b1d08641d7676ee7"
+tests\test_api_jws.py:888:                  "https://scim.example.com/Users/44f6142df96bd6ab61e7521d9",
+tests\test_api_jwt.py:220:            "iss": "https://scim.example.com",
+tests\test_api_jwt.py:224:                "https://scim.example.com/Feeds/98d52461fa5bbc879593b7754",
+tests\test_api_jwt.py:225:                "https://scim.example.com/Feeds/5d7604516b1d08641d7676ee7",
+tests\test_api_jwt.py:229:                    "ref": "https://scim.example.com/Users/44f6142df96bd6ab61e7521d9",
+tests\test_compressed_jwt.py:18:    # Test case from https://github.com/jpadilla/pyjwt/pull/753/files
+tests\test_compressed_jwt.py:21:    # payload made with the pako (https://nodeca.github.io/pako/) library in Javascript:
+tests\test_jwks_client.py:8:from urllib.error import HTTPError, URLError
+tests\test_jwks_client.py:52:def mocked_success_response(data: object) -> Iterator[mock.Mock]:
+tests\test_jwks_client.py:93:def mocked_http_error_response() -> Iterator[tuple[mock.Mock, HTTPError]]:
+tests\test_jwks_client.py:95:        http_error = HTTPError(
+tests\test_jwks_client.py:96:            url="https://example.com",
+tests\test_jwks_client.py:102:        urlopen_mock.side_effect = http_error
+tests\test_jwks_client.py:103:        yield urlopen_mock, http_error
+tests\test_jwks_client.py:109:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:122:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:131:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:141:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:155:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:169:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:182:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:198:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:215:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:225:            audience="https://expenses-api",
+tests\test_jwks_client.py:230:            "iss": "https://dev-87evx9ru.auth0.com/",
+tests\test_jwks_client.py:232:            "aud": "https://expenses-api",
+tests\test_jwks_client.py:240:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:256:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:272:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:296:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:318:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:326:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:335:        ) as call_data:
+tests\test_jwks_client.py:341:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:353:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:362:            "file:///etc/passwd",
+tests\test_jwks_client.py:363:            "ftp://example.org/keys.json",
+tests\test_jwks_client.py:364:            'data:application/json,{"keys":[]}',
+tests\test_jwks_client.py:365:            "/etc/passwd",  # urlparse gives scheme="" — also rejected
+tests\test_jwks_client.py:369:    def test_pyjwkclient_rejects_non_http_schemes(self, uri: str) -> None:
+tests\test_jwks_client.py:370:        # urllib's default OpenerDirector handles file://, ftp://, and data:
+tests\test_jwks_client.py:373:        # schemes via a manipulated URI.
+tests\test_jwks_client.py:374:        with pytest.raises(PyJWKClientError, match="Invalid JWKS URI scheme"):
+tests\test_jwks_client.py:380:            "http://localhost/jwks.json",
+tests\test_jwks_client.py:381:            "https://example.test/jwks.json",
+tests\test_jwks_client.py:382:            "HTTPS://Example.Test/jwks.json",  # case-insensitive
+tests\test_jwks_client.py:385:    def test_pyjwkclient_accepts_http_https_schemes(self, uri: str) -> None:
+tests\test_jwks_client.py:390:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:400:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:412:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:424:    def test_http_error_is_closed_on_connection_failure(self) -> None:
+tests\test_jwks_client.py:425:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:428:        with mocked_http_error_response() as (_, http_error):
+tests\test_jwks_client.py:432:            assert http_error.closed

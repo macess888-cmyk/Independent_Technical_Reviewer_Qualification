@@ -1,0 +1,31 @@
+246:                'It is required that you pass in a value for the "algorithms" argument when calling decode().'
+247:            )
+248:
+249:        payload, signing_input, header, signature = self._load(jwt)
+250:
+251:        self._validate_headers(header)
+252:
+253:        if header.get("b64", True) is False:
+254:            # RFC 7797 A3: when "b64" is present in the protected header,
+255:            # it MUST also appear in "crit". A token that sets b64=false
+256:            # without declaring it critical is malformed.
+257:            crit = header.get("crit") or []
+258:            if not isinstance(crit, list) or "b64" not in crit:
+259:                raise InvalidTokenError(
+260:                    "The 'b64' header parameter requires 'b64' to be listed in 'crit'."
+261:                )
+262:            if detached_payload is None:
+263:                raise DecodeError(
+264:                    'It is required that you pass in a value for the "detached_payload" argument to decode a message having the b64 header set to false.'
+265:                )
+266:            payload = detached_payload
+267:            signing_input = b".".join([signing_input.rsplit(b".", 1)[0], payload])
+268:
+269:        if verify_signature:
+270:            self._verify_signature(
+271:                signing_input,
+272:                header,
+273:                signature,
+274:                key,
+275:                algorithms,
+276:                options=merged_options,

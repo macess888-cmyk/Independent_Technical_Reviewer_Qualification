@@ -1,0 +1,36 @@
+371:        header: dict[str, Any],
+372:        signature: bytes,
+373:        key: AllowedPublicKeys | PyJWK | str | bytes = "",
+374:        algorithms: Sequence[str] | None = None,
+375:        options: SigOptions | None = None,
+376:    ) -> None:
+377:        effective_options = options if options is not None else self.options
+378:
+379:        if algorithms is None and isinstance(key, PyJWK):
+380:            algorithms = [key.algorithm_name]
+381:        try:
+382:            alg = header["alg"]
+383:        except KeyError:
+384:            raise InvalidAlgorithmError("Algorithm not specified") from None
+385:
+386:        if not alg or (algorithms is not None and alg not in algorithms):
+387:            raise InvalidAlgorithmError("The specified alg value is not allowed")
+388:
+389:        if isinstance(key, PyJWK):
+390:            # The PyJWK has a fixed algorithm bound at construction time.
+391:            # Verification must use that algorithm, not whatever the token
+392:            # header advertises, otherwise the caller's allow-list check
+393:            # above degenerates into a string compare with no behavioural
+394:            # effect on which algorithm actually verifies the signature.
+395:            if alg != key.algorithm_name:
+396:                raise InvalidAlgorithmError(
+397:                    f"Token algorithm {alg!r} does not match the key's "
+398:                    f"algorithm {key.algorithm_name!r}"
+399:                )
+400:            alg_obj = key.Algorithm
+401:            prepared_key = key.key
+402:        else:
+403:            try:
+404:                alg_obj = self.get_algorithm_by_name(alg)
+405:            except NotImplementedError as e:
+406:                raise InvalidAlgorithmError("Algorithm not supported") from e

@@ -1,0 +1,1 @@
+pip 26.1.2 from C:\Users\maces\Independent_Technical_Reviewer_Qualification\reviews\ITR-001-PyJWT\artifact\.venv\Lib\site-packages\pip (python 3.12)

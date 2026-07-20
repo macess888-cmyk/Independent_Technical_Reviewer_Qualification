@@ -1,0 +1,36 @@
+356:            jwks_client = PyJWKClient(url, lifespan=-1)
+357:            assert jwks_client is None
+358:
+359:    @pytest.mark.parametrize(
+360:        "uri",
+361:        [
+362:            "file:///etc/passwd",
+363:            "ftp://example.org/keys.json",
+364:            'data:application/json,{"keys":[]}',
+365:            "/etc/passwd",  # urlparse gives scheme="" ƒ?" also rejected
+366:            "ldap://internal.test/jwks",
+367:        ],
+368:    )
+369:    def test_pyjwkclient_rejects_non_http_schemes(self, uri: str) -> None:
+370:        # urllib's default OpenerDirector handles file://, ftp://, and data:
+371:        # URIs. PyJWKClient must reject these so callers can't be tricked
+372:        # into reading attacker-controlled local files or other unintended
+373:        # schemes via a manipulated URI.
+374:        with pytest.raises(PyJWKClientError, match="Invalid JWKS URI scheme"):
+375:            PyJWKClient(uri)
+376:
+377:    @pytest.mark.parametrize(
+378:        "uri",
+379:        [
+380:            "http://localhost/jwks.json",
+381:            "https://example.test/jwks.json",
+382:            "HTTPS://Example.Test/jwks.json",  # case-insensitive
+383:        ],
+384:    )
+385:    def test_pyjwkclient_accepts_http_https_schemes(self, uri: str) -> None:
+386:        # Construction succeeds; no fetch is made until get_jwk_set().
+387:        PyJWKClient(uri)
+388:
+389:    def test_get_jwt_set_timeout(self) -> None:
+390:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+391:        jwks_client = PyJWKClient(url, timeout=5)

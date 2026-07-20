@@ -1,0 +1,8 @@
+reviews/ITR-001-PyJWT/artifact/.venv/
+reviews/ITR-001-PyJWT/artifact/.tox/
+reviews/ITR-001-PyJWT/artifact/.coverage
+reviews/ITR-001-PyJWT/artifact/.pytest_cache/
+reviews/ITR-001-PyJWT/artifact/__pycache__/
+reviews/ITR-001-PyJWT/artifact/jwt/__pycache__/
+reviews/ITR-001-PyJWT/artifact/tests/__pycache__/
+reviews/ITR-001-PyJWT/artifact/

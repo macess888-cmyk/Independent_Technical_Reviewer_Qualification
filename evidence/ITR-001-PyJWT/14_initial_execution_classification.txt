@@ -1,0 +1,19 @@
+INDEPENDENT EXECUTION ATTEMPT 001
+
+Artifact: PyJWT
+Release: 2.13.0
+Commit: 7144e4534c34810f4525dc4578a32addd8212cff
+Environment: Windows 10.0.26200.8875, CPython 3.12.8
+Full tox matrix result: HOLD
+Reason: Required Python and PyPy interpreters were unavailable.
+
+Verified available lanes:
+typing: PASS
+py312-crypto: PASS
+py312-nocrypto: PASS
+py312-mypy: PASS
+py312-crypto-mypy: PASS
+
+Unresolved:
+lint: requires separate inspection
+complete cross-version matrix: not reproduced

@@ -1,0 +1,61 @@
+7:from jwt.api_jwk import PyJWK
+35:except ModuleNotFoundError:
+51:    def test_register_algo_does_not_allow_duplicate_registration(
+74:        assert "HS256" not in supported
+76:    def test_unregister_algo_throws_error_if_not_registered(self, jws: PyJWS) -> None:
+85:        assert "none" not in jws.get_algorithms()
+91:        assert not jws.options["verify_signature"]
+111:    def test_decode_fails_when_alg_is_not_on_method_algorithms_param(
+139:        assert str(exception) == "Not enough segments"
+200:        with pytest.raises(NotImplementedError) as context:
+204:        assert str(exception) == "Algorithm not supported"
+209:            # The type signature does not capture the fact that `key` may be
+247:        jwk = PyJWK(
+268:        """Test that encoding with a PyJWK key uses the key's algorithm
+270:        jwk = PyJWK(
+277:        # Should use HS384 from the key, not default to HS256
+297:        assert str(exception) == "Algorithm not supported"
+345:        jwk = PyJWK(
+365:        jwk = PyJWK(
+382:    def test_decodes_with_jwk_and_mismatched_algorithm(
+385:        jwk = PyJWK(
+405:        # HS256, but the PyJWK is bound to HS512. Even though the allow-list
+406:        # would pass, verification must be locked to the PyJWK's algorithm
+410:        jwk = PyJWK(
+424:            InvalidAlgorithmError, match="does not match the key's algorithm"
+428:    # 'Control' Elliptic Curve jws created by another library.
+447:    # 'Control' RSA jws created by another library.
+529:            # The type signature does not capture the fact that `key` is not
+542:        with pytest.raises(InvalidKeyError, match="must not be empty"):
+549:        with pytest.raises(InvalidKeyError, match="must not be empty"):
+561:        with pytest.raises(NotImplementedError):
+568:        with pytest.raises(NotImplementedError) as excinfo:
+580:        secret = "\xc2"  # char value that ascii codec cannot decode
+588:        secret = b"\xc2"  # char value that ascii codec cannot decode
+665:            # The type signature does not capture the fact that `key` may be
+679:            # The type signature does not capture the fact that `key` may be
+765:            assert "RS256" not in jws_algorithms
+766:            assert "RS384" not in jws_algorithms
+767:            assert "RS512" not in jws_algorithms
+768:            assert "PS256" not in jws_algorithms
+769:            assert "PS384" not in jws_algorithms
+770:            assert "PS512" not in jws_algorithms
+817:            assert "ES256" not in jws_algorithms
+818:            assert "ES256K" not in jws_algorithms
+819:            assert "ES384" not in jws_algorithms
+820:            assert "ES512" not in jws_algorithms
+912:        assert "typ" not in header_obj
+921:        assert "typ" not in header_obj
+972:        # Check that the payload is not inside the token
+973:        assert not msg_payload
+975:        # Check that content is not detached and b64 header removed when b64 is true
+983:        assert "b64" not in msg_header_obj
+1005:        # PyJWT does support) should be preserved alongside the auto-added
+1046:        with pytest.raises(DecodeError, match="Payload segment must be empty"):
+1067:        with pytest.raises(InvalidTokenError, match="b64.*crit"):
+1141:        with pytest.raises(InvalidTokenError, match="Unsupported critical extension"):
+1153:        with pytest.raises(InvalidTokenError, match="must be a non-empty list"):
+1165:        with pytest.raises(InvalidTokenError, match="must be a non-empty list"):
+1179:        with pytest.raises(InvalidTokenError, match="values must be strings"):
+1193:        with pytest.raises(InvalidTokenError, match="missing from headers"):
+1227:        with pytest.raises(InvalidTokenError, match="Unsupported critical extension"):

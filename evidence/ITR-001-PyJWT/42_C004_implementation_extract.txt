@@ -1,0 +1,41 @@
+91:            # Default lifespan is 300 seconds (5 minutes).
+92:            if lifespan <= 0:
+93:                raise PyJWKClientError(
+94:                    f'Lifespan must be greater than 0, the input is "{lifespan}"'
+95:                )
+96:            self.jwk_set_cache = JWKSetCache(lifespan)
+97:        else:
+98:            self.jwk_set_cache = None
+99:
+100:        if cache_keys:
+101:            # Cache signing keys
+102:            get_signing_key = lru_cache(maxsize=max_cached_keys)(self.get_signing_key)
+103:            # Ignore mypy (https://github.com/python/mypy/issues/2427)
+104:            self.get_signing_key = get_signing_key  # type: ignore[method-assign]
+105:
+106:    def fetch_data(self) -> Any:
+107:        """Fetch the JWK Set from the JWKS endpoint.
+108:
+109:        Makes an HTTP request to the configured ``uri`` and returns the
+110:        parsed JSON response. If the JWK Set cache is enabled, the
+111:        response is stored in the cache.
+112:
+113:        :returns: The parsed JWK Set as a dictionary.
+114:        :raises PyJWKClientConnectionError: If the HTTP request fails.
+115:        """
+116:        try:
+117:            r = urllib.request.Request(url=self.uri, headers=self.headers)
+118:            with urllib.request.urlopen(
+119:                r, timeout=self.timeout, context=self.ssl_context
+120:            ) as response:
+121:                jwk_set = json.load(response)
+122:        except (URLError, TimeoutError) as e:
+123:            if isinstance(e, HTTPError):
+124:                e.close()
+125:            raise PyJWKClientConnectionError(
+126:                f'Fail to fetch data from the url, err: "{e}"'
+127:            ) from e
+128:
+129:        # Only update the cache on a successful fetch. Writing in a
+130:        # `finally` block with `jwk_set=None` on error clears any
+131:        # previously-cached JWKS, turning a transient outage into a cache

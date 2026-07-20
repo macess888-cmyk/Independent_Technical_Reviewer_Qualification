@@ -1,0 +1,6 @@
+jwt\api_jwk.py:73:        self.algorithm_name = algorithm
+jwt\api_jws.py:135:                algorithm_ = key.algorithm_name
+jwt\api_jws.py:140:                algorithm_ = key.algorithm_name
+jwt\api_jws.py:380:            algorithms = [key.algorithm_name]
+jwt\api_jws.py:395:            if alg != key.algorithm_name:
+jwt\api_jws.py:398:                    f"algorithm {key.algorithm_name!r}"

@@ -1,0 +1,53 @@
+tests\test_api_jwk.py:242:        jwk_set = PyJWKSet.from_dict({"keys": [key_data]})
+tests\test_api_jwk.py:243:        jwk = jwk_set.keys[0]
+tests\test_api_jwk.py:264:        jwk_set = PyJWKSet.from_json(json.dumps({"keys": [key_data]}))
+tests\test_api_jwk.py:265:        jwk = jwk_set.keys[0]
+tests\test_api_jwk.py:286:        jwk_set = PyJWKSet.from_dict({"keys": [key_data]})
+tests\test_api_jwk.py:288:        jwk = jwk_set.keys[0]
+tests\test_api_jwk.py:289:        assert jwk == jwk_set["keyid-abc123"]
+tests\test_api_jwk.py:292:            _ = jwk_set["this-kid-does-not-exist"]
+tests\test_api_jwk.py:304:        jwk_set = PyJWKSet.from_dict({"keys": [key_data]})
+tests\test_api_jwk.py:306:        assert jwk_set.keys == [jwk for jwk in jwk_set]
+tests\test_jwks_client.py:108:    def test_fetch_data_forwards_headers_to_correct_url(self) -> None:
+tests\test_jwks_client.py:114:            jwk_set = jwks_client.get_jwk_set()
+tests\test_jwks_client.py:119:        assert len(jwk_set.keys) == 1
+tests\test_jwks_client.py:121:    def test_get_jwk_set(self) -> None:
+tests\test_jwks_client.py:126:            jwk_set = jwks_client.get_jwk_set()
+tests\test_jwks_client.py:128:        assert len(jwk_set.keys) == 1
+tests\test_jwks_client.py:181:    def test_get_signing_key_caches_result(self) -> None:
+tests\test_jwks_client.py:185:        jwks_client = PyJWKClient(url, cache_keys=True)
+tests\test_jwks_client.py:197:    def test_get_signing_key_does_not_cache_opt_out(self) -> None:
+tests\test_jwks_client.py:201:        jwks_client = PyJWKClient(url, cache_jwk_set=False)
+tests\test_jwks_client.py:239:    def test_get_jwk_set_caches_result(self) -> None:
+tests\test_jwks_client.py:243:        assert jwks_client.jwk_set_cache is not None
+tests\test_jwks_client.py:246:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:251:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:255:    def test_get_jwt_set_cache_expired_result(self) -> None:
+tests\test_jwks_client.py:260:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:267:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:271:    def test_get_jwt_set_cache_disabled(self) -> None:
+tests\test_jwks_client.py:274:        jwks_client = PyJWKClient(url, cache_jwk_set=False)
+tests\test_jwks_client.py:275:        assert jwks_client.jwk_set_cache is None
+tests\test_jwks_client.py:278:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:280:        assert jwks_client.jwk_set_cache is None
+tests\test_jwks_client.py:287:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:291:    def test_get_jwt_set_failed_refresh_preserves_cached_jwks(self) -> None:
+tests\test_jwks_client.py:292:        # Regression: a transient fetch failure used to clear the cache via
+tests\test_jwks_client.py:293:        # the previous `finally: put(jwk_set=None)` pattern, turning one bad
+tests\test_jwks_client.py:295:        # The cache must survive.
+tests\test_jwks_client.py:300:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:302:        assert jwks_client.jwk_set_cache is not None
+tests\test_jwks_client.py:303:        assert jwks_client.jwk_set_cache.get() is not None
+tests\test_jwks_client.py:307:                jwks_client.get_jwk_set(refresh=True)
+tests\test_jwks_client.py:309:        cached = jwks_client.jwk_set_cache.get()
+tests\test_jwks_client.py:310:        assert cached is not None
+tests\test_jwks_client.py:311:        # Subsequent reads still serve from cache without another fetch.
+tests\test_jwks_client.py:313:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:325:    def test_get_jwt_set_refresh_cache(self) -> None:
+tests\test_jwks_client.py:332:        # the function should make another call to try to refresh the cache.
+tests\test_jwks_client.py:386:        # Construction succeeds; no fetch is made until get_jwk_set().
+tests\test_jwks_client.py:395:                jwks_client.get_jwk_set()
+tests\test_jwks_client.py:405:            jwk_set = jwks_client.get_jwk_set()
+tests\test_jwks_client.py:409:        assert jwk_set is not None
+tests\test_jwks_client.py:422:                jwks_client.get_jwk_set()
+tests\test_jwks_client.py:430:                jwks_client.get_jwk_set()

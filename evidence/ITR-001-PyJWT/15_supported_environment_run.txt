@@ -1,0 +1,356 @@
+build_wheel: _optional_hooks> python C:\Users\maces\Independent_Technical_Reviewer_Qualification\reviews\ITR-001-PyJWT\artifact\.venv\Lib\site-packages\pyproject_api\_backend.py True setuptools.build_meta
+build_wheel: get_requires_for_build_wheel> python C:\Users\maces\Independent_Technical_Reviewer_Qualification\reviews\ITR-001-PyJWT\artifact\.venv\Lib\site-packages\pyproject_api\_backend.py True setuptools.build_meta
+build_wheel: build_wheel> python C:\Users\maces\Independent_Technical_Reviewer_Qualification\reviews\ITR-001-PyJWT\artifact\.venv\Lib\site-packages\pyproject_api\_backend.py True setuptools.build_meta
+typing: install_package> python -I -m pip install --force-reinstall --no-deps C:\Users\maces\Independent_Technical_Reviewer_Qualification\reviews\ITR-001-PyJWT\artifact\.tox\.tmp\package\6\pyjwt-2.13.0-py3-none-any.whl
+typing: commands[0]> .tox\typing\Scripts\python.exe -b -m coverage run -m pytest
+============================= test session starts =============================
+platform win32 -- Python 3.12.8, pytest-8.4.2, pluggy-1.6.0
+cachedir: .tox\typing\.pytest_cache
+rootdir: C:\Users\maces\Independent_Technical_Reviewer_Qualification\reviews\ITR-001-PyJWT\artifact
+configfile: pyproject.toml
+testpaths: tests
+collected 369 items
+
+tests\test_advisory.py s                                                 [  0%]
+tests\test_algorithms.py .......................ssssssssssssssssssssssss [ 13%]
+sssssssssssssss.ssssssssssssssssssssssssssssssssssssssssss........sssss. [ 32%]
+........                                                                 [ 34%]
+tests\test_api_jwk.py ssssssssssss..sssssss.                             [ 40%]
+tests\test_api_jws.py ..................ss..........ss.................. [ 54%]
+.....sss.ssss..........................                                  [ 64%]
+tests\test_api_jwt.py ....................ss............................ [ 78%]
+..............................                                           [ 86%]
+tests\test_compressed_jwt.py .                                           [ 86%]
+tests\test_exceptions.py .                                               [ 86%]
+tests\test_jwks_client.py sssssssssssssssssssssssssssss                  [ 94%]
+tests\test_jwt.py .                                                      [ 95%]
+tests\test_utils.py ..................                                   [100%]
+
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_advisory.py:27: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:157: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:164: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:171: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:178: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:185: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:208: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:228: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:289: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:303: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:313: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:337: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:362: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:371: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:401: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:411: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:424: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:438: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:448: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:459: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:470: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:494: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:505: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:517: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:547: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:610: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:619: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:627: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:634: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:641: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:648: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:669: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:683: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:695: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:711: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:764: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:795: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:826: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:868: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:880: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:906: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:929: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:950: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:964: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:970: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:979: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:990: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1002: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:1054: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1080: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1088: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1097: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1108: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1120: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:1172: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1198: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1207: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1215: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1231: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1246: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1261: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1276: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1291: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1302: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1313: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1324: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1335: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1347: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1371: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1404: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1419: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1514: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1528: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1540: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1547: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1559: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:21: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:42: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:63: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:75: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:87: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:99: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:111: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:123: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:135: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:147: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:160: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:171: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:227: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:249: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:271: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:294: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:308: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:326: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:332: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jws.py:218: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jws.py:231: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jws.py:432: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jws.py:451: Requires cryptography library installed
+SKIPPED [3] tests\test_api_jws.py:716: Requires cryptography library installed
+SKIPPED [4] tests\test_api_jws.py:772: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwt.py:335: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwt.py:353: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:108: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:121: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:130: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:140: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:154: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:168: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:181: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:197: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:213: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:239: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:255: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:271: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:291: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:316: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:325: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:340: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:352: Requires cryptography library installed
+SKIPPED [5] tests\test_jwks_client.py:359: Requires cryptography library installed
+SKIPPED [3] tests\test_jwks_client.py:377: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:389: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:399: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:411: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:424: Requires cryptography library installed
+====================== 221 passed, 148 skipped in 0.39s =======================
+typing: OK + in 2.81 seconds
+py312-crypto: install_package> python -I -m pip install --force-reinstall --no-deps C:\Users\maces\Independent_Technical_Reviewer_Qualification\reviews\ITR-001-PyJWT\artifact\.tox\.tmp\package\7\pyjwt-2.13.0-py3-none-any.whl
+py312-crypto: commands[0]> .tox\py312-crypto\Scripts\python.exe -b -m coverage run -m pytest
+============================= test session starts =============================
+platform win32 -- Python 3.12.8, pytest-8.4.2, pluggy-1.6.0
+cachedir: .tox\py312-crypto\.pytest_cache
+rootdir: C:\Users\maces\Independent_Technical_Reviewer_Qualification\reviews\ITR-001-PyJWT\artifact
+configfile: pyproject.toml
+testpaths: tests
+collected 369 items
+
+tests\test_advisory.py .                                                 [  0%]
+tests\test_algorithms.py ............................................... [ 13%]
+........................................................................ [ 32%]
+........                                                                 [ 34%]
+tests\test_api_jwk.py ............ss.......s                             [ 40%]
+tests\test_api_jws.py .........................................s........ [ 54%]
+.......................................                                  [ 64%]
+tests\test_api_jwt.py .................................................. [ 78%]
+..............................                                           [ 86%]
+tests\test_compressed_jwt.py .                                           [ 86%]
+tests\test_exceptions.py .                                               [ 86%]
+tests\test_jwks_client.py .............................                  [ 94%]
+tests\test_jwt.py .                                                      [ 95%]
+tests\test_utils.py ..................                                   [100%]
+
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_api_jwk.py:214: Requires cryptography library not installed
+SKIPPED [1] tests\test_api_jwk.py:220: Requires cryptography library not installed
+SKIPPED [1] tests\test_api_jwk.py:338: Requires cryptography library not installed
+SKIPPED [1] tests\test_api_jws.py:564: Requires cryptography library not installed
+======================= 365 passed, 4 skipped in 5.24s ========================
+py312-crypto: OK + in 6.44 seconds
+py312-nocrypto: install_package> python -I -m pip install --force-reinstall --no-deps C:\Users\maces\Independent_Technical_Reviewer_Qualification\reviews\ITR-001-PyJWT\artifact\.tox\.tmp\package\8\pyjwt-2.13.0-py3-none-any.whl
+py312-nocrypto: commands[0]> .tox\py312-nocrypto\Scripts\python.exe -b -m coverage run -m pytest
+============================= test session starts =============================
+platform win32 -- Python 3.12.8, pytest-8.4.2, pluggy-1.6.0
+cachedir: .tox\py312-nocrypto\.pytest_cache
+rootdir: C:\Users\maces\Independent_Technical_Reviewer_Qualification\reviews\ITR-001-PyJWT\artifact
+configfile: pyproject.toml
+testpaths: tests
+collected 369 items
+
+tests\test_advisory.py s                                                 [  0%]
+tests\test_algorithms.py .......................ssssssssssssssssssssssss [ 13%]
+sssssssssssssss.ssssssssssssssssssssssssssssssssssssssssss........sssss. [ 32%]
+........                                                                 [ 34%]
+tests\test_api_jwk.py ssssssssssss..sssssss.                             [ 40%]
+tests\test_api_jws.py ..................ss..........ss.................. [ 54%]
+.....sss.ssss..........................                                  [ 64%]
+tests\test_api_jwt.py ....................ss............................ [ 78%]
+..............................                                           [ 86%]
+tests\test_compressed_jwt.py .                                           [ 86%]
+tests\test_exceptions.py .                                               [ 86%]
+tests\test_jwks_client.py sssssssssssssssssssssssssssss                  [ 94%]
+tests\test_jwt.py .                                                      [ 95%]
+tests\test_utils.py ..................                                   [100%]
+
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_advisory.py:27: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:157: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:164: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:171: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:178: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:185: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:208: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:228: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:289: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:303: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:313: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:337: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:362: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:371: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:401: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:411: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:424: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:438: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:448: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:459: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:470: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:494: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:505: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:517: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:547: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:610: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:619: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:627: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:634: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:641: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:648: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:669: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:683: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:695: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:711: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:764: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:795: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:826: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:868: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:880: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:906: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:929: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:950: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:964: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:970: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:979: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:990: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1002: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:1054: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1080: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1088: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1097: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1108: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1120: Requires cryptography library installed
+SKIPPED [2] tests\test_algorithms.py:1172: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1198: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1207: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1215: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1231: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1246: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1261: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1276: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1291: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1302: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1313: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1324: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1335: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1347: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1371: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1404: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1419: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1514: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1528: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1540: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1547: Requires cryptography library installed
+SKIPPED [1] tests\test_algorithms.py:1559: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:21: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:42: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:63: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:75: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:87: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:99: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:111: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:123: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:135: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:147: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:160: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:171: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:227: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:249: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:271: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:294: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:308: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:326: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwk.py:332: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jws.py:218: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jws.py:231: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jws.py:432: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jws.py:451: Requires cryptography library installed
+SKIPPED [3] tests\test_api_jws.py:716: Requires cryptography library installed
+SKIPPED [4] tests\test_api_jws.py:772: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwt.py:335: Requires cryptography library installed
+SKIPPED [1] tests\test_api_jwt.py:353: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:108: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:121: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:130: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:140: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:154: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:168: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:181: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:197: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:213: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:239: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:255: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:271: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:291: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:316: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:325: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:340: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:352: Requires cryptography library installed
+SKIPPED [5] tests\test_jwks_client.py:359: Requires cryptography library installed
+SKIPPED [3] tests\test_jwks_client.py:377: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:389: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:399: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:411: Requires cryptography library installed
+SKIPPED [1] tests\test_jwks_client.py:424: Requires cryptography library installed
+====================== 221 passed, 148 skipped in 0.38s =======================
+py312-nocrypto: OK + in 1.47 seconds
+py312-mypy: install_package> python -I -m pip install --force-reinstall --no-deps C:\Users\maces\Independent_Technical_Reviewer_Qualification\reviews\ITR-001-PyJWT\artifact\.tox\.tmp\package\9\pyjwt-2.13.0-py3-none-any.whl
+py312-mypy: commands[0]> mypy
+[1m[92mSuccess: no issues found in 25 source files[0m
+py312-mypy: OK + in 1.08 seconds
+py312-crypto-mypy: install_package> python -I -m pip install --force-reinstall --no-deps C:\Users\maces\Independent_Technical_Reviewer_Qualification\reviews\ITR-001-PyJWT\artifact\.tox\.tmp\package\10\pyjwt-2.13.0-py3-none-any.whl
+py312-crypto-mypy: commands[0]> mypy
+[1m[92mSuccess: no issues found in 25 source files[0m
+  typing: OK (2.81=setup[1.98]+cmd[0.83] seconds)
+  py312-crypto: OK (6.44=setup[0.66]+cmd[5.78] seconds)
+  py312-nocrypto: OK (1.47=setup[0.64]+cmd[0.83] seconds)
+  py312-mypy: OK (1.08=setup[0.61]+cmd[0.47] seconds)
+  py312-crypto-mypy: OK (1.06=setup[0.59]+cmd[0.47] seconds)
+  congratulations :) (12.95 seconds)

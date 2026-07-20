@@ -1,0 +1,61 @@
+
+> CHANGELOG.rst:7:`Unreleased 
+<https://github.com/jpadilla/pyjwt/compare/2.13.0...HEAD>`__
+  CHANGELOG.rst:8:----------------------------------------------------------------
+--------
+  CHANGELOG.rst:9:
+> CHANGELOG.rst:10:`v2.13.0 
+<https://github.com/jpadilla/pyjwt/compare/2.12.1...2.13.0>`__
+  CHANGELOG.rst:11:---------------------------------------------------------------
+--------
+  CHANGELOG.rst:12:
+  CHANGELOG.rst:13:Security
+  CHANGELOG.rst:14:~~~~~~~~
+  CHANGELOG.rst:15:
+  CHANGELOG.rst:16:- Reject JWK JSON documents passed as raw HMAC secrets in
+  CHANGELOG.rst:17:  ``HMACAlgorithm.prepare_key`` to close an 
+algorithm-confusion gap that
+  CHANGELOG.rst:18:  the existing PEM/SSH guard did not cover. Reported by 
+@aradona91 in
+  CHANGELOG.rst:19:  `GHSA-xgmm-8j9v-c9wx 
+<https://github.com/jpadilla/pyjwt/security/advisories/GHSA-xgmm-8j9v-c9wx>`__.
+  CHANGELOG.rst:20:- Bind the JWT header ``alg`` to ``PyJWK.algorithm_name`` 
+during
+  CHANGELOG.rst:21:  verification so the caller's ``algorithms=[...]`` allow-list 
+cannot be
+  CHANGELOG.rst:22:  bypassed when decoding with a ``PyJWK`` / ``PyJWKClient`` 
+key. Reported
+  CHANGELOG.rst:23:  by @sushi-gif in `GHSA-jq35-7prp-9v3f 
+<https://github.com/jpadilla/pyjwt/security/advisories/GHSA-jq35-7prp-9v3f>`__.
+  CHANGELOG.rst:24:- Reject non-``http(s)`` URI schemes in ``PyJWKClient`` so 
+attacker-
+  CHANGELOG.rst:25:  influenced URIs cannot read local files or reach unintended 
+schemes via
+  CHANGELOG.rst:26:  urllib's default ``file://`` / ``ftp://`` / ``data:`` 
+handlers. Reported
+  CHANGELOG.rst:27:  by @KEIJOT in `GHSA-993g-76c3-p5m4 
+<https://github.com/jpadilla/pyjwt/security/advisories/GHSA-993g-76c3-p5m4>`__.
+  CHANGELOG.rst:28:- Preserve the cached JWK Set on fetch errors in 
+``PyJWKClient.fetch_data``.
+  CHANGELOG.rst:29:  The previous ``finally``-block ``put(None)`` pattern cleared 
+the cache
+  CHANGELOG.rst:30:  on any transient outage, turning one bad JWKS request into 
+application-
+  CHANGELOG.rst:31:  wide auth failure. Reported by @eddieran in 
+`GHSA-fhv5-28vv-h8m8 
+<https://github.com/jpadilla/pyjwt/security/advisories/GHSA-fhv5-28vv-h8m8>`__.
+  CHANGELOG.rst:32:- Skip the unconditional base64 decode of the compact-form 
+payload segment
+  CHANGELOG.rst:33:  when ``b64=false`` is set in the protected header, and 
+require that
+  CHANGELOG.rst:34:  segment to be empty (RFC 7515 Appendix F detached form). 
+Closes an
+  CHANGELOG.rst:35:  unauthenticated DoS amplifier. Reported by @thesmartshadow in
+  CHANGELOG.rst:36:  `GHSA-w7vc-732c-9m39 
+<https://github.com/jpadilla/pyjwt/security/advisories/GHSA-w7vc-732c-9m39>`__.
+  CHANGELOG.rst:37:
+  CHANGELOG.rst:38:Fixed
+  CHANGELOG.rst:39:~~~~~
+  CHANGELOG.rst:40:
+
+

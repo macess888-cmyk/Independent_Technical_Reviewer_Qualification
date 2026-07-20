@@ -1,0 +1,19 @@
+jwt\api_jwk.py:21:        """A class that represents a `JSON Web Key <https://www.rfc-editor.org/rfc/rfc7517>`_.
+jwt\api_jwt.py:210:               <https://www.rfc-editor.org/rfc/rfc8725.html#section-2.1>`_). Instead,
+jwt\api_jwt.py:338:               <https://www.rfc-editor.org/rfc/rfc8725.html#section-2.1>`_). Instead,
+jwt\jwks_client.py:8:from urllib.error import HTTPError, URLError
+jwt\jwks_client.py:9:from urllib.parse import urlparse
+jwt\jwks_client.py:64:        :param headers: Optional HTTP headers to include in requests.
+jwt\jwks_client.py:66:        :param timeout: HTTP request timeout in seconds.
+jwt\jwks_client.py:74:        # data: URIs. Reject anything that isn't http(s) eagerly so a caller
+jwt\jwks_client.py:76:        # header) can't read local files or reach other unintended schemes.
+jwt\jwks_client.py:77:        scheme = urlparse(uri).scheme.lower()
+jwt\jwks_client.py:78:        if scheme not in ("http", "https"):
+jwt\jwks_client.py:80:                f"Invalid JWKS URI scheme {scheme!r}: only 'http' and 'https' "
+jwt\jwks_client.py:103:            # Ignore mypy (https://github.com/python/mypy/issues/2427)
+jwt\jwks_client.py:109:        Makes an HTTP request to the configured ``uri`` and returns the
+jwt\jwks_client.py:114:        :raises PyJWKClientConnectionError: If the HTTP request fails.
+jwt\jwks_client.py:123:            if isinstance(e, HTTPError):
+jwt\utils.py:96:# Based on https://github.com/hynek/pem/blob/7ad94db26b0bc21d10953f5dbad3acfdfacf57aa/src/pem/_core.py#L224-L252
+jwt\utils.py:130:# Based on https://github.com/pyca/cryptography/blob/bcb70852d577b3f490f015378c75cba74986297b/src/cryptography/hazmat/primitives/serialization/ssh.py#L40-L46
+jwt\__init__.py:35:__url__ = "https://pyjwt.readthedocs.io"

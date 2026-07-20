@@ -1,0 +1,51 @@
+tests\test_algorithms.py:191:        sig = base64.b64decode(
+tests\test_algorithms.py:655:        sig = base64.b64decode(
+tests\test_algorithms.py:675:        sig = base64.b64decode(b"AC+m4Jf/xI3guAC6w0w3")
+tests\test_algorithms.py:717:        jwt_sig = base64.b64decode(
+tests\test_algorithms.py:894:        expected_sig = base64.b64decode(getattr(self, sig_attr))
+tests\test_algorithms.py:919:        jwt_sig = base64.b64decode(getattr(self, sig_attr))
+tests\test_algorithms.py:942:        jwt_sig = base64.b64decode(getattr(self, sig_attr))
+tests\test_algorithms.py:1201:        foo_hash = base64.b64decode(b"LCa0a2j/xo/5m0U8HTBBNBNCLXBkg7+g+YpeiGJm564=")
+tests\test_algorithms.py:1209:        foo_hash = base64.b64decode(b"LCa0a2j/xo/5m0U8HTBBNBNCLXBkg7+g+YpeiGJm564=")
+tests\test_api_jws.py:955:        jws.decode(jws_message, secret, algorithms=["HS256"], detached_payload=payload)
+tests\test_api_jws.py:957:    def test_encode_detached_content_with_b64_header(
+tests\test_api_jws.py:962:        # Check that detached content is automatically detected when b64 is false
+tests\test_api_jws.py:963:        headers = {"b64": False}
+tests\test_api_jws.py:970:        assert "b64" in msg_header_obj
+tests\test_api_jws.py:971:        assert msg_header_obj["b64"] is False
+tests\test_api_jws.py:975:        # Check that content is not detached and b64 header removed when b64 is true
+tests\test_api_jws.py:976:        headers = {"b64": True}
+tests\test_api_jws.py:983:        assert "b64" not in msg_header_obj
+tests\test_api_jws.py:986:    def test_encode_b64_false_auto_adds_b64_to_crit(
+tests\test_api_jws.py:989:        # RFC 7797 §3: producers MUST list "b64" in "crit" whenever "b64"
+tests\test_api_jws.py:997:        assert header_obj["b64"] is False
+tests\test_api_jws.py:998:        assert "b64" in header_obj.get("crit", [])
+tests\test_api_jws.py:1000:    def test_encode_b64_false_preserves_existing_crit_entries(
+tests\test_api_jws.py:1006:        # "b64" marker.
+tests\test_api_jws.py:1011:            headers={"b64": False, "crit": ["b64"]},
+tests\test_api_jws.py:1015:        assert header_obj["crit"] == ["b64"]
+tests\test_api_jws.py:1017:    def test_decode_b64_false_rejects_non_empty_payload_segment(
+tests\test_api_jws.py:1020:        # RFC 7515 Appendix F detached form: when b64=false, the compact-
+tests\test_api_jws.py:1031:            "b64": False,
+tests\test_api_jws.py:1032:            "crit": ["b64"],
+tests\test_api_jws.py:1034:        header_b64 = base64url_encode(
+tests\test_api_jws.py:1040:        signing_input = b".".join([header_b64, payload])
+tests\test_api_jws.py:1043:            [header_b64, attacker_segment, base64url_encode(sig)]
+tests\test_api_jws.py:1047:            jws.decode(token, secret, algorithms=["HS256"], detached_payload=payload)
+tests\test_api_jws.py:1049:    def test_decode_b64_false_without_crit_b64_is_rejected(
+tests\test_api_jws.py:1052:        # Hand-craft a non-compliant token: header has b64=false but no
+tests\test_api_jws.py:1053:        # crit:["b64"]. Per RFC 7797 §3, such tokens are malformed and must
+tests\test_api_jws.py:1054:        # be rejected even though PyJWT understands b64.
+tests\test_api_jws.py:1059:        header_obj = {"typ": "JWT", "alg": "HS256", "b64": False}
+tests\test_api_jws.py:1060:        header_b64 = base64url_encode(
+tests\test_api_jws.py:1063:        signing_input = b".".join([header_b64, payload])
+tests\test_api_jws.py:1065:        token = b".".join([header_b64, b"", base64url_encode(sig)]).decode()
+tests\test_api_jws.py:1067:        with pytest.raises(InvalidTokenError, match="b64.*crit"):
+tests\test_api_jws.py:1068:            jws.decode(token, secret, algorithms=["HS256"], detached_payload=payload)
+tests\test_api_jws.py:1082:            'It is required that you pass in a value for the "detached_payload" argument to decode a message having the b64 header set to false.'
+tests\test_api_jws.py:1099:                detached_payload=payload,
+tests\test_api_jws.py:1121:                detached_payload=payload,
+tests\test_api_jws.py:1162:            headers={"crit": "b64"},
+tests\test_api_jws.py:1190:            headers={"crit": ["b64"]},
+tests\test_api_jws.py:1204:            headers={"crit": ["b64"], "b64": False},
+tests\test_api_jws.py:1212:            detached_payload=payload,

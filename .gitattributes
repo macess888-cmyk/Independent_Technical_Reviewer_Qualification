@@ -1,0 +1,3 @@
+evidence/** -text
+reviews/ITR-001-PyJWT/review/** -text
+reviews/ITR-001-PyJWT/reviewer_tests/** -text

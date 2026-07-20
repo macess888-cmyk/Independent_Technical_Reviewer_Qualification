@@ -1,0 +1,3 @@
+SHA256 hash of ..\review\ITR-001_INDEPENDENT_TECHNICAL_REVIEW.md:
+a9b85414113631a801f6bbf9edf09300447fa465d4fe8cd44a4f3005ecc4a4d5
+CertUtil: -hashfile command completed successfully.

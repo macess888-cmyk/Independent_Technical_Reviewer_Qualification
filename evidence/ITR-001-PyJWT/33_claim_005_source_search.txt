@@ -1,0 +1,31 @@
+jwt\api_jws.py:152:            headers_b64 = headers.get("b64")
+jwt\api_jws.py:153:            if headers_b64 is False:
+jwt\api_jws.py:167:            header["b64"] = False
+jwt\api_jws.py:168:            # RFC 7797 §3: producers MUST list "b64" in "crit" whenever
+jwt\api_jws.py:169:            # "b64" appears in the protected header, so b64-unaware
+jwt\api_jws.py:175:            if "b64" not in existing_crit:
+jwt\api_jws.py:176:                header["crit"] = [*existing_crit, "b64"]
+jwt\api_jws.py:177:        elif "b64" in header:
+jwt\api_jws.py:178:            # True is the standard value for b64, so no need for it
+jwt\api_jws.py:179:            del header["b64"]
+jwt\api_jws.py:225:        detached_payload: bytes | None = None,
+jwt\api_jws.py:253:        if header.get("b64", True) is False:
+jwt\api_jws.py:254:            # RFC 7797 §3: when "b64" is present in the protected header,
+jwt\api_jws.py:255:            # it MUST also appear in "crit". A token that sets b64=false
+jwt\api_jws.py:258:            if not isinstance(crit, list) or "b64" not in crit:
+jwt\api_jws.py:260:                    "The 'b64' header parameter requires 'b64' to be listed in 'crit'."
+jwt\api_jws.py:262:            if detached_payload is None:
+jwt\api_jws.py:264:                    'It is required that you pass in a value for the "detached_payload" argument to decode a message having the b64 header set to false.'
+jwt\api_jws.py:266:            payload = detached_payload
+jwt\api_jws.py:291:        detached_payload: bytes | None = None,
+jwt\api_jws.py:303:            jwt, key, algorithms, options, detached_payload=detached_payload
+jwt\api_jws.py:344:        if header.get("b64", True) is False:
+jwt\api_jws.py:347:            # payload via the `detached_payload` argument in decode_complete.
+jwt\api_jws.py:353:                raise DecodeError("Payload segment must be empty when 'b64' is false.")
+jwt\api_jws.py:420:    _supported_crit: set[str] = {"b64"}
+jwt\api_jwt.py:183:        detached_payload: bytes | None = None,
+jwt\api_jwt.py:270:            detached_payload=detached_payload,
+jwt\api_jwt.py:312:        detached_payload: bytes | None = None,
+jwt\api_jwt.py:374:            detached_payload=detached_payload,
+jwt\utils.py:33:    return base64.urlsafe_b64decode(input_bytes)
+jwt\utils.py:37:    return base64.urlsafe_b64encode(input).replace(b"=", b"")

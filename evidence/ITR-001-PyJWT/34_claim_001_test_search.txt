@@ -1,0 +1,954 @@
+tests\keys\__init__.py:16:def load_hmac_key() -> bytes:
+tests\keys\__init__.py:17:    with open(os.path.join(BASE_PATH, "jwk_hmac.json")) as infile:
+tests\keys\__init__.py:28:        with open(os.path.join(BASE_PATH, "jwk_rsa_pub.json")) as infile:
+tests\keys\__init__.py:29:            return RSAAlgorithm.from_jwk(infile.read())
+tests\keys\__init__.py:32:        with open(os.path.join(BASE_PATH, "jwk_ec_pub_P-521.json")) as infile:
+tests\test_advisory.py:50:        # Using HMAC with the public key to trick the receiver to think that the
+tests\test_advisory.py:51:        # public key is a HMAC secret
+tests\test_advisory.py:73:        # HMAC specifies illegal strings for the HMAC secret in jwt/algorithms.py
+tests\test_advisory.py:102:        # Using HMAC with the ssh public key to trick the receiver to think that the public key is a HMAC secret
+tests\test_algorithms.py:7:from jwt.algorithms import HMACAlgorithm, NoneAlgorithm, has_crypto
+tests\test_algorithms.py:11:from .keys import load_ec_pub_key_p_521, load_hmac_key, load_rsa_pub_key
+tests\test_algorithms.py:47:            algo.prepare_key("123")
+tests\test_algorithms.py:49:    def test_none_algorithm_should_throw_exception_on_to_jwk(self) -> None:
+tests\test_algorithms.py:53:            algo.to_jwk("dummy")  # Using a dummy argument as is it not relevant
+tests\test_algorithms.py:55:    def test_none_algorithm_should_throw_exception_on_from_jwk(self) -> None:
+tests\test_algorithms.py:59:            algo.from_jwk({})  # Using a dummy argument as is it not relevant
+tests\test_algorithms.py:61:    def test_hmac_should_reject_nonstring_key(self) -> None:
+tests\test_algorithms.py:62:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:65:            algo.prepare_key(object())  # type: ignore[arg-type]
+tests\test_algorithms.py:70:    def test_hmac_should_accept_unicode_key(self) -> None:
+tests\test_algorithms.py:71:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:73:        algo.prepare_key("awesome")
+tests\test_algorithms.py:85:    def test_hmac_should_throw_exception(self, key: str) -> None:
+tests\test_algorithms.py:86:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:90:                algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:92:    def test_hmac_jwk_should_parse_and_verify(self) -> None:
+tests\test_algorithms.py:93:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:95:        with open(key_path("jwk_hmac.json")) as keyfile:
+tests\test_algorithms.py:96:            key = algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:102:    def test_hmac_to_jwk_returns_correct_values(self, as_dict: bool) -> None:
+tests\test_algorithms.py:103:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:105:            key = algo.to_jwk("secret", as_dict=True)
+tests\test_algorithms.py:107:            key = json.loads(algo.to_jwk("secret", as_dict=False))
+tests\test_algorithms.py:111:    def test_hmac_from_jwk_should_raise_exception_if_not_hmac_key(self) -> None:
+tests\test_algorithms.py:112:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:114:        with open(key_path("jwk_rsa_pub.json")) as keyfile:
+tests\test_algorithms.py:116:                algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:118:    def test_hmac_from_jwk_should_raise_exception_if_empty_json(self) -> None:
+tests\test_algorithms.py:119:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:121:        with open(key_path("jwk_empty.json")) as keyfile:
+tests\test_algorithms.py:123:                algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:126:    def test_hmac_prepare_key_rejects_empty_key(
+tests\test_algorithms.py:129:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:132:            algo.prepare_key(empty_key)
+tests\test_algorithms.py:135:        "jwk_file",
+tests\test_algorithms.py:137:            "jwk_rsa_pub.json",
+tests\test_algorithms.py:138:            "jwk_ec_pub_P-256.json",
+tests\test_algorithms.py:139:            "jwk_okp_pub_Ed25519.json",
+tests\test_algorithms.py:140:            "jwk_hmac.json",
+tests\test_algorithms.py:143:    def test_hmac_prepare_key_rejects_jwk_json(self, jwk_file: str) -> None:
+tests\test_algorithms.py:144:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:146:        with open(key_path(jwk_file)) as keyfile:
+tests\test_algorithms.py:147:            with pytest.raises(InvalidKeyError, match="looks like a JWK"):
+tests\test_algorithms.py:148:                algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:150:    def test_hmac_prepare_key_accepts_json_without_kty(self) -> None:
+tests\test_algorithms.py:151:        # JSON that doesn't look like a JWK (no "kty") should not be misclassified.
+tests\test_algorithms.py:152:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:154:        key = algo.prepare_key('{"this": "is just a json-shaped secret"}')
+tests\test_algorithms.py:155:        assert key == b'{"this": "is just a json-shaped secret"}'
+tests\test_algorithms.py:162:            algo.prepare_key(pem_key.read())
+tests\test_algorithms.py:169:            algo.prepare_key(pem_key.read())
+tests\test_algorithms.py:176:            algo.prepare_key(rsa_key.read())
+tests\test_algorithms.py:183:            algo.prepare_key(None)  # type: ignore[arg-type,unused-ignore]
+tests\test_algorithms.py:203:            pub_key = cast(RSAPublicKey, algo.prepare_key(keyfile.read()))
+tests\test_algorithms.py:209:    def test_ec_jwk_public_and_private_keys_should_parse_and_verify(self) -> None:
+tests\test_algorithms.py:219:            with open(key_path(f"jwk_ec_pub_{curve}.json")) as keyfile:
+tests\test_algorithms.py:220:                pub_key = cast(EllipticCurvePublicKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:222:            with open(key_path(f"jwk_ec_key_{curve}.json")) as keyfile:
+tests\test_algorithms.py:223:                priv_key = cast(EllipticCurvePrivateKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:229:    def test_ec_jwk_fails_on_invalid_json(self) -> None:
+tests\test_algorithms.py:253:            algo.from_jwk("<this isn't json>")
+tests\test_algorithms.py:257:            algo.from_jwk('{"kty": "RSA"}')
+tests\test_algorithms.py:261:            algo.from_jwk('{"kty": "EC"}')
+tests\test_algorithms.py:263:            algo.from_jwk('{"kty": "EC", "x": "1"}')
+tests\test_algorithms.py:265:            algo.from_jwk('{"kty": "EC", "y": "1"}')
+tests\test_algorithms.py:269:            algo.from_jwk('{"kty": "EC", "x": "dGVzdA==", "y": "dGVzdA=="}')
+tests\test_algorithms.py:273:            algo.from_jwk('{"kty": "EC", "x": "dGVzdHRlc3Q=", "y": "dGVzdA=="}')
+tests\test_algorithms.py:278:                algo.from_jwk(
+tests\test_algorithms.py:285:                algo.from_jwk(
+tests\test_algorithms.py:290:    def test_ec_private_key_to_jwk_works_with_from_jwk(self) -> None:
+tests\test_algorithms.py:294:            orig_key = cast(EllipticCurvePrivateKey, algo.prepare_key(ec_key.read()))
+tests\test_algorithms.py:296:        parsed_key = cast(EllipticCurvePrivateKey, algo.from_jwk(algo.to_jwk(orig_key)))
+tests\test_algorithms.py:304:    def test_ec_public_key_to_jwk_works_with_from_jwk(self) -> None:
+tests\test_algorithms.py:308:            orig_key = cast(EllipticCurvePublicKey, algo.prepare_key(ec_key.read()))
+tests\test_algorithms.py:310:        parsed_key = cast(EllipticCurvePublicKey, algo.from_jwk(algo.to_jwk(orig_key)))
+tests\test_algorithms.py:315:    def test_ec_to_jwk_returns_correct_values_for_public_key(
+tests\test_algorithms.py:321:            pub_key = algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:324:            key = algo.to_jwk(pub_key, as_dict=True)
+tests\test_algorithms.py:326:            key = json.loads(algo.to_jwk(pub_key, as_dict=False))
+tests\test_algorithms.py:339:    def test_ec_to_jwk_returns_correct_values_for_private_key(
+tests\test_algorithms.py:345:            priv_key = algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:348:            key = algo.to_jwk(priv_key, as_dict=True)
+tests\test_algorithms.py:350:            key = json.loads(algo.to_jwk(priv_key, as_dict=False))
+tests\test_algorithms.py:363:    def test_ec_to_jwk_raises_exception_on_invalid_key(self) -> None:
+tests\test_algorithms.py:369:            algo.to_jwk({"not": "a valid key"})  # type: ignore[call-overload,unused-ignore]
+tests\test_algorithms.py:373:    def test_ec_to_jwk_with_valid_curves(self, as_dict: bool) -> None:
+tests\test_algorithms.py:383:            with open(key_path(f"jwk_ec_pub_{curve}.json")) as keyfile:
+tests\test_algorithms.py:384:                pub_key = algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:386:                    jwk = algo.to_jwk(pub_key, as_dict=True)
+tests\test_algorithms.py:388:                    jwk = json.loads(algo.to_jwk(pub_key, as_dict=False))
+tests\test_algorithms.py:390:                assert jwk["crv"] == curve
+tests\test_algorithms.py:392:            with open(key_path(f"jwk_ec_key_{curve}.json")) as keyfile:
+tests\test_algorithms.py:393:                priv_key = algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:395:                    jwk = algo.to_jwk(priv_key, as_dict=True)
+tests\test_algorithms.py:397:                    jwk = json.loads(algo.to_jwk(priv_key, as_dict=False))
+tests\test_algorithms.py:399:                assert jwk["crv"] == curve
+tests\test_algorithms.py:402:    def test_ec_to_jwk_with_invalid_curve(self) -> None:
+tests\test_algorithms.py:406:            priv_key = algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:409:            algo.to_jwk(priv_key)
+tests\test_algorithms.py:412:    def test_rsa_jwk_public_and_private_keys_should_parse_and_verify(self) -> None:
+tests\test_algorithms.py:415:        with open(key_path("jwk_rsa_pub.json")) as keyfile:
+tests\test_algorithms.py:416:            pub_key = cast(RSAPublicKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:418:        with open(key_path("jwk_rsa_key.json")) as keyfile:
+tests\test_algorithms.py:419:            priv_key = cast(RSAPrivateKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:425:    def test_rsa_private_key_to_jwk_works_with_from_jwk(self) -> None:
+tests\test_algorithms.py:429:            orig_key = cast(RSAPrivateKey, algo.prepare_key(rsa_key.read()))
+tests\test_algorithms.py:431:        parsed_key = cast(RSAPrivateKey, algo.from_jwk(algo.to_jwk(orig_key)))
+tests\test_algorithms.py:439:    def test_rsa_public_key_to_jwk_works_with_from_jwk(self) -> None:
+tests\test_algorithms.py:443:            orig_key = cast(RSAPublicKey, algo.prepare_key(rsa_key.read()))
+tests\test_algorithms.py:445:        parsed_key = cast(RSAPublicKey, algo.from_jwk(algo.to_jwk(orig_key)))
+tests\test_algorithms.py:449:    def test_rsa_jwk_private_key_with_other_primes_is_invalid(self) -> None:
+tests\test_algorithms.py:452:        with open(key_path("jwk_rsa_key.json")) as keyfile:
+tests\test_algorithms.py:457:                algo.from_jwk(json.dumps(keydata))
+tests\test_algorithms.py:460:    def test_rsa_jwk_private_key_with_missing_values_is_invalid(self) -> None:
+tests\test_algorithms.py:463:        with open(key_path("jwk_rsa_key.json")) as keyfile:
+tests\test_algorithms.py:468:                algo.from_jwk(json.dumps(keydata))
+tests\test_algorithms.py:471:    def test_rsa_jwk_private_key_can_recover_prime_factors(self) -> None:
+tests\test_algorithms.py:474:        with open(key_path("jwk_rsa_key.json")) as keyfile:
+tests\test_algorithms.py:476:            control_key = cast(RSAPrivateKey, algo.from_jwk(keybytes)).private_numbers()
+tests\test_algorithms.py:484:                RSAPrivateKey, algo.from_jwk(json.dumps(keydata))
+tests\test_algorithms.py:495:    def test_rsa_jwk_private_key_with_missing_required_values_is_invalid(self) -> None:
+tests\test_algorithms.py:498:        with open(key_path("jwk_rsa_key.json")) as keyfile:
+tests\test_algorithms.py:503:                algo.from_jwk(json.dumps(keydata))
+tests\test_algorithms.py:506:    def test_rsa_jwk_raises_exception_if_not_a_valid_key(self) -> None:
+tests\test_algorithms.py:511:            algo.from_jwk("{not-a-real-key")
+tests\test_algorithms.py:515:            algo.from_jwk('{"kty": "RSA"}')
+tests\test_algorithms.py:519:    def test_rsa_to_jwk_returns_correct_values_for_public_key(
+tests\test_algorithms.py:525:            pub_key = algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:528:            key = algo.to_jwk(pub_key, as_dict=True)
+tests\test_algorithms.py:530:            key = json.loads(algo.to_jwk(pub_key, as_dict=False))
+tests\test_algorithms.py:549:    def test_rsa_to_jwk_returns_correct_values_for_private_key(
+tests\test_algorithms.py:555:            priv_key = algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:558:            key = algo.to_jwk(priv_key, as_dict=True)
+tests\test_algorithms.py:560:            key = json.loads(algo.to_jwk(priv_key, as_dict=False))
+tests\test_algorithms.py:611:    def test_rsa_to_jwk_raises_exception_on_invalid_key(self) -> None:
+tests\test_algorithms.py:617:            algo.to_jwk({"not": "a valid key"})  # type: ignore[call-overload,unused-ignore]
+tests\test_algorithms.py:620:    def test_rsa_from_jwk_raises_exception_on_invalid_key(self) -> None:
+tests\test_algorithms.py:623:        with open(key_path("jwk_hmac.json")) as keyfile:
+tests\test_algorithms.py:625:                algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:632:            algo.prepare_key(None)  # type: ignore[arg-type,unused-ignore]
+tests\test_algorithms.py:639:            algo.prepare_key(ec_key.read())
+tests\test_algorithms.py:646:            algo.prepare_key(ec_key.read())
+tests\test_algorithms.py:664:            pub_key = algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:678:            pub_key = algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:689:                algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:693:                algo.prepare_key(pem_key.read())
+tests\test_algorithms.py:702:            priv_key = cast(RSAPrivateKey, algo.prepare_key(keyfile.read()))
+tests\test_algorithms.py:706:            pub_key = cast(RSAPublicKey, algo.prepare_key(keyfile.read()))
+tests\test_algorithms.py:729:            jwt_pub_key = cast(RSAPublicKey, algo.prepare_key(keyfile.read()))
+tests\test_algorithms.py:741:    def test_hmac_verify_should_return_true_for_test_vector(self) -> None:
+tests\test_algorithms.py:743:        This test verifies that HMAC verification works with a known good
+tests\test_algorithms.py:758:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:759:        key = algo.prepare_key(load_hmac_key())
+tests\test_algorithms.py:790:        key = cast(RSAPublicKey, algo.prepare_key(load_rsa_pub_key()))
+tests\test_algorithms.py:821:        key = cast(RSAPublicKey, algo.prepare_key(load_rsa_pub_key()))
+tests\test_algorithms.py:849:        key = algo.prepare_key(load_ec_pub_key_p_521())
+tests\test_algorithms.py:855:        with open(key_path("jwk_ec_key_P-521.json")) as keyfile:
+tests\test_algorithms.py:856:            private_key = algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:872:            algo.prepare_key(None)  # type: ignore[arg-type,unused-ignore]
+tests\test_algorithms.py:875:            algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:878:            algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:897:            jwt_key = cast(Ed25519PrivateKey, algo.prepare_key(keyfile.read()))
+tests\test_algorithms.py:900:            jwt_pub_key = cast(Ed25519PublicKey, algo.prepare_key(keyfile.read()))
+tests\test_algorithms.py:924:            jwt_pub_key = algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:945:            jwt_pub_key = algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:953:    def test_okp_ed25519_prepare_key_should_be_idempotent(
+tests\test_algorithms.py:959:            jwt_pub_key_first = algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:960:            jwt_pub_key_second = algo.prepare_key(jwt_pub_key_first)
+tests\test_algorithms.py:964:    def test_okp_ed25519_prepare_key_should_reject_invalid_key(self) -> None:
+tests\test_algorithms.py:968:            algo.prepare_key("not a valid key")
+tests\test_algorithms.py:970:    def test_okp_ed25519_jwk_private_key_should_parse_and_verify(self) -> None:
+tests\test_algorithms.py:973:        with open(key_path("jwk_okp_key_Ed25519.json")) as keyfile:
+tests\test_algorithms.py:974:            key = cast(Ed25519PrivateKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:979:    def test_okp_ed25519_jwk_private_key_should_parse_and_verify_with_private_key_as_is(
+tests\test_algorithms.py:984:        with open(key_path("jwk_okp_key_Ed25519.json")) as keyfile:
+tests\test_algorithms.py:985:            key = cast(Ed25519PrivateKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:990:    def test_okp_ed25519_jwk_public_key_should_parse_and_verify(self) -> None:
+tests\test_algorithms.py:993:        with open(key_path("jwk_okp_key_Ed25519.json")) as keyfile:
+tests\test_algorithms.py:994:            priv_key = cast(Ed25519PrivateKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:996:        with open(key_path("jwk_okp_pub_Ed25519.json")) as keyfile:
+tests\test_algorithms.py:997:            pub_key = cast(Ed25519PublicKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:1002:    def test_okp_ed25519_jwk_fails_on_invalid_json(self) -> None:
+tests\test_algorithms.py:1005:        with open(key_path("jwk_okp_pub_Ed25519.json")) as keyfile:
+tests\test_algorithms.py:1007:        with open(key_path("jwk_okp_key_Ed25519.json")) as keyfile:
+tests\test_algorithms.py:1012:            algo.from_jwk(123)  # type: ignore[arg-type]
+tests\test_algorithms.py:1016:            algo.from_jwk("<this isn't json>")
+tests\test_algorithms.py:1022:            algo.from_jwk(v)
+tests\test_algorithms.py:1028:            algo.from_jwk(v)
+tests\test_algorithms.py:1034:            algo.from_jwk(v)
+tests\test_algorithms.py:1040:            algo.from_jwk(v)
+tests\test_algorithms.py:1046:            algo.from_jwk(v)
+tests\test_algorithms.py:1052:            algo.from_jwk(v)
+tests\test_algorithms.py:1055:    def test_okp_ed25519_to_jwk_works_with_from_jwk(self, as_dict: bool) -> None:
+tests\test_algorithms.py:1058:        with open(key_path("jwk_okp_key_Ed25519.json")) as keyfile:
+tests\test_algorithms.py:1059:            priv_key_1 = cast(Ed25519PrivateKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:1061:        with open(key_path("jwk_okp_pub_Ed25519.json")) as keyfile:
+tests\test_algorithms.py:1062:            pub_key_1 = cast(Ed25519PublicKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:1064:        pub_jwk: Union[dict[str, object], str]
+tests\test_algorithms.py:1065:        pri_jwk: Union[dict[str, object], str]
+tests\test_algorithms.py:1067:            pub_jwk = algo.to_jwk(pub_key_1, as_dict=True)
+tests\test_algorithms.py:1068:            pri_jwk = algo.to_jwk(priv_key_1, as_dict=True)
+tests\test_algorithms.py:1070:            pub_jwk = algo.to_jwk(pub_key_1, as_dict=False)
+tests\test_algorithms.py:1071:            pri_jwk = algo.to_jwk(priv_key_1, as_dict=False)
+tests\test_algorithms.py:1072:        pub_key_2 = algo.from_jwk(pub_jwk)
+tests\test_algorithms.py:1073:        priv_key_2 = cast(Ed25519PrivateKey, algo.from_jwk(pri_jwk))
+tests\test_algorithms.py:1080:    def test_okp_to_jwk_raises_exception_on_invalid_key(self) -> None:
+tests\test_algorithms.py:1086:            algo.to_jwk({"not": "a valid key"})  # type: ignore[call-overload,unused-ignore]
+tests\test_algorithms.py:1088:    def test_okp_ed448_jwk_private_key_should_parse_and_verify(self) -> None:
+tests\test_algorithms.py:1091:        with open(key_path("jwk_okp_key_Ed448.json")) as keyfile:
+tests\test_algorithms.py:1092:            key = cast(Ed448PrivateKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:1097:    def test_okp_ed448_jwk_private_key_should_parse_and_verify_with_private_key_as_is(
+tests\test_algorithms.py:1102:        with open(key_path("jwk_okp_key_Ed448.json")) as keyfile:
+tests\test_algorithms.py:1103:            key = cast(Ed448PrivateKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:1108:    def test_okp_ed448_jwk_public_key_should_parse_and_verify(self) -> None:
+tests\test_algorithms.py:1111:        with open(key_path("jwk_okp_key_Ed448.json")) as keyfile:
+tests\test_algorithms.py:1112:            priv_key = cast(Ed448PrivateKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:1114:        with open(key_path("jwk_okp_pub_Ed448.json")) as keyfile:
+tests\test_algorithms.py:1115:            pub_key = cast(Ed448PublicKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:1120:    def test_okp_ed448_jwk_fails_on_invalid_json(self) -> None:
+tests\test_algorithms.py:1123:        with open(key_path("jwk_okp_pub_Ed448.json")) as keyfile:
+tests\test_algorithms.py:1125:        with open(key_path("jwk_okp_key_Ed448.json")) as keyfile:
+tests\test_algorithms.py:1130:            algo.from_jwk(123)  # type: ignore[arg-type]
+tests\test_algorithms.py:1134:            algo.from_jwk("<this isn't json>")
+tests\test_algorithms.py:1140:            algo.from_jwk(v)
+tests\test_algorithms.py:1146:            algo.from_jwk(v)
+tests\test_algorithms.py:1152:            algo.from_jwk(v)
+tests\test_algorithms.py:1158:            algo.from_jwk(v)
+tests\test_algorithms.py:1164:            algo.from_jwk(v)
+tests\test_algorithms.py:1170:            algo.from_jwk(v)
+tests\test_algorithms.py:1173:    def test_okp_ed448_to_jwk_works_with_from_jwk(self, as_dict: bool) -> None:
+tests\test_algorithms.py:1176:        with open(key_path("jwk_okp_key_Ed448.json")) as keyfile:
+tests\test_algorithms.py:1177:            priv_key_1 = cast(Ed448PrivateKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:1179:        with open(key_path("jwk_okp_pub_Ed448.json")) as keyfile:
+tests\test_algorithms.py:1180:            pub_key_1 = cast(Ed448PublicKey, algo.from_jwk(keyfile.read()))
+tests\test_algorithms.py:1182:        pub_jwk: Union[dict[str, object], str]
+tests\test_algorithms.py:1183:        pri_jwk: Union[dict[str, object], str]
+tests\test_algorithms.py:1185:            pub_jwk = algo.to_jwk(pub_key_1, as_dict=True)
+tests\test_algorithms.py:1186:            pri_jwk = algo.to_jwk(priv_key_1, as_dict=True)
+tests\test_algorithms.py:1188:            pub_jwk = algo.to_jwk(pub_key_1, as_dict=False)
+tests\test_algorithms.py:1189:            pri_jwk = algo.to_jwk(priv_key_1, as_dict=False)
+tests\test_algorithms.py:1190:        pub_key_2 = algo.from_jwk(pub_jwk)
+tests\test_algorithms.py:1191:        priv_key_2 = cast(Ed448PrivateKey, algo.from_jwk(pri_jwk))
+tests\test_algorithms.py:1207:    def test_hmac_can_compute_digest(self) -> None:
+tests\test_algorithms.py:1211:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:1216:    def test_rsa_prepare_key_raises_invalid_key_error_on_invalid_pem(self) -> None:
+tests\test_algorithms.py:1221:            algo.prepare_key(invalid_key)
+tests\test_algorithms.py:1238:        with open(key_path("jwk_ec_key_P-384.json")) as keyfile:
+tests\test_algorithms.py:1239:            p384_key = ECAlgorithm.from_jwk(keyfile.read())
+tests\test_algorithms.py:1242:            algo.prepare_key(p384_key)
+tests\test_algorithms.py:1253:        with open(key_path("jwk_ec_key_P-256.json")) as keyfile:
+tests\test_algorithms.py:1254:            p256_key = ECAlgorithm.from_jwk(keyfile.read())
+tests\test_algorithms.py:1257:            algo.prepare_key(p256_key)
+tests\test_algorithms.py:1268:        with open(key_path("jwk_ec_key_P-256.json")) as keyfile:
+tests\test_algorithms.py:1269:            p256_key = ECAlgorithm.from_jwk(keyfile.read())
+tests\test_algorithms.py:1272:            algo.prepare_key(p256_key)
+tests\test_algorithms.py:1283:        with open(key_path("jwk_ec_key_P-256.json")) as keyfile:
+tests\test_algorithms.py:1284:            p256_key = ECAlgorithm.from_jwk(keyfile.read())
+tests\test_algorithms.py:1287:            algo.prepare_key(p256_key)
+tests\test_algorithms.py:1297:        with open(key_path("jwk_ec_key_P-256.json")) as keyfile:
+tests\test_algorithms.py:1298:            key = algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:1299:            prepared = algo.prepare_key(key)
+tests\test_algorithms.py:1308:        with open(key_path("jwk_ec_key_P-384.json")) as keyfile:
+tests\test_algorithms.py:1309:            key = algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:1310:            prepared = algo.prepare_key(key)
+tests\test_algorithms.py:1319:        with open(key_path("jwk_ec_key_P-521.json")) as keyfile:
+tests\test_algorithms.py:1320:            key = algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:1321:            prepared = algo.prepare_key(key)
+tests\test_algorithms.py:1330:        with open(key_path("jwk_ec_key_secp256k1.json")) as keyfile:
+tests\test_algorithms.py:1331:            key = algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:1332:            prepared = algo.prepare_key(key)
+tests\test_algorithms.py:1343:                algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:1352:        with open(key_path("jwk_ec_key_P-256.json")) as keyfile:
+tests\test_algorithms.py:1353:            p256_key = algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:1354:            algo.prepare_key(p256_key)
+tests\test_algorithms.py:1357:        with open(key_path("jwk_ec_key_P-384.json")) as keyfile:
+tests\test_algorithms.py:1358:            p384_key = algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:1359:            algo.prepare_key(p384_key)
+tests\test_algorithms.py:1362:        with open(key_path("jwk_ec_key_P-521.json")) as keyfile:
+tests\test_algorithms.py:1363:            p521_key = algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:1364:            algo.prepare_key(p521_key)
+tests\test_algorithms.py:1367:        with open(key_path("jwk_ec_key_secp256k1.json")) as keyfile:
+tests\test_algorithms.py:1368:            secp256k1_key = algo.from_jwk(keyfile.read())
+tests\test_algorithms.py:1369:            algo.prepare_key(secp256k1_key)
+tests\test_algorithms.py:1412:            algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:1417:                algo.prepare_key(keyfile.read())
+tests\test_algorithms.py:1424:        with open(key_path("jwk_ec_key_P-384.json")) as keyfile:
+tests\test_algorithms.py:1425:            p384_key = ECAlgorithm.from_jwk(keyfile.read())
+tests\test_algorithms.py:1434:        with open(key_path("jwk_ec_key_P-256.json")) as keyfile:
+tests\test_algorithms.py:1435:            p256_key = ECAlgorithm.from_jwk(keyfile.read())
+tests\test_algorithms.py:1442:        with open(key_path("jwk_ec_pub_P-384.json")) as keyfile:
+tests\test_algorithms.py:1443:            p384_pub_key = ECAlgorithm.from_jwk(keyfile.read())
+tests\test_algorithms.py:1451:        with open(key_path("jwk_ec_pub_P-256.json")) as keyfile:
+tests\test_algorithms.py:1452:            p256_pub_key = ECAlgorithm.from_jwk(keyfile.read())
+tests\test_algorithms.py:1463:    # --- HMAC tests ---
+tests\test_algorithms.py:1465:    def test_hmac_short_key_warns_by_default_hs256(self) -> None:
+tests\test_algorithms.py:1466:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:1467:        key = algo.prepare_key(b"short")
+tests\test_algorithms.py:1473:    def test_hmac_short_key_warns_by_default_hs384(self) -> None:
+tests\test_algorithms.py:1474:        algo = HMACAlgorithm(HMACAlgorithm.SHA384)
+tests\test_algorithms.py:1475:        key = algo.prepare_key(b"a" * 47)
+tests\test_algorithms.py:1480:    def test_hmac_short_key_warns_by_default_hs512(self) -> None:
+tests\test_algorithms.py:1481:        algo = HMACAlgorithm(HMACAlgorithm.SHA512)
+tests\test_algorithms.py:1482:        key = algo.prepare_key(b"a" * 63)
+tests\test_algorithms.py:1487:    def test_hmac_empty_key_rejected_outright(self) -> None:
+tests\test_algorithms.py:1488:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:1490:            algo.prepare_key(b"")
+tests\test_algorithms.py:1492:    def test_hmac_exact_minimum_no_warning(self) -> None:
+tests\test_algorithms.py:1493:        algo = HMACAlgorithm(HMACAlgorithm.SHA256)
+tests\test_algorithms.py:1494:        key = algo.prepare_key(b"a" * 32)
+tests\test_algorithms.py:1497:    def test_hmac_above_minimum_no_warning(self) -> None:
+tests\test_algorithms.py:1498:        algo = HMACAlgorithm(HMACAlgorithm.SHA512)
+tests\test_algorithms.py:1499:        key = algo.prepare_key(b"a" * 128)
+tests\test_algorithms.py:1502:    def test_hmac_exact_minimum_hs384(self) -> None:
+tests\test_algorithms.py:1503:        algo = HMACAlgorithm(HMACAlgorithm.SHA384)
+tests\test_algorithms.py:1504:        key = algo.prepare_key(b"a" * 48)
+tests\test_algorithms.py:1507:    def test_hmac_exact_minimum_hs512(self) -> None:
+tests\test_algorithms.py:1508:        algo = HMACAlgorithm(HMACAlgorithm.SHA512)
+tests\test_algorithms.py:1509:        key = algo.prepare_key(b"a" * 64)
+tests\test_algorithms.py:1544:            key = algo.prepare_key(f.read())
+tests\test_algorithms.py:1576:        prepared = algo.prepare_key(pem)
+tests\test_algorithms.py:1582:    def test_pyjws_encode_warns_short_hmac_key(self) -> None:
+tests\test_algorithms.py:1589:    def test_pyjws_encode_enforces_short_hmac_key(self) -> None:
+tests\test_algorithms.py:1608:    def test_pyjwt_encode_warns_short_hmac_key(self) -> None:
+tests\test_algorithms.py:1614:    def test_pyjwt_encode_enforces_short_hmac_key(self) -> None:
+tests\test_algorithms.py:1621:    def test_pyjwt_decode_enforces_short_hmac_key(self) -> None:
+tests\test_api_jwk.py:6:from jwt.api_jwk import PyJWK, PyJWKSet
+tests\test_api_jwk.py:10:    PyJWKError,
+tests\test_api_jwk.py:11:    PyJWKSetError,
+tests\test_api_jwk.py:17:    from jwt.algorithms import ECAlgorithm, HMACAlgorithm, OKPAlgorithm, RSAAlgorithm
+tests\test_api_jwk.py:20:class TestPyJWK:
+tests\test_api_jwk.py:22:    def test_should_load_key_from_jwk_data_dict(self) -> None:
+tests\test_api_jwk.py:25:        with open(key_path("jwk_rsa_pub.json")) as keyfile:
+tests\test_api_jwk.py:26:            pub_key = algo.from_jwk(keyfile.read())
+tests\test_api_jwk.py:28:        key_data_str = algo.to_jwk(pub_key)
+tests\test_api_jwk.py:31:        # TODO Should `to_jwk` set these?
+tests\test_api_jwk.py:36:        jwk = PyJWK.from_dict(key_data)
+tests\test_api_jwk.py:38:        assert jwk.key_type == "RSA"
+tests\test_api_jwk.py:39:        assert jwk.key_id == "keyid-abc123"
+tests\test_api_jwk.py:40:        assert jwk.public_key_use == "sig"
+tests\test_api_jwk.py:43:    def test_should_load_key_from_jwk_data_json_string(self) -> None:
+tests\test_api_jwk.py:46:        with open(key_path("jwk_rsa_pub.json")) as keyfile:
+tests\test_api_jwk.py:47:            pub_key = algo.from_jwk(keyfile.read())
+tests\test_api_jwk.py:49:        key_data_str = algo.to_jwk(pub_key)
+tests\test_api_jwk.py:52:        # TODO Should `to_jwk` set these?
+tests\test_api_jwk.py:57:        jwk = PyJWK.from_json(json.dumps(key_data))
+tests\test_api_jwk.py:59:        assert jwk.key_type == "RSA"
+tests\test_api_jwk.py:60:        assert jwk.key_id == "keyid-abc123"
+tests\test_api_jwk.py:61:        assert jwk.public_key_use == "sig"
+tests\test_api_jwk.py:65:        with open(key_path("jwk_rsa_pub.json")) as keyfile:
+tests\test_api_jwk.py:68:        jwk = PyJWK.from_dict(key_data)
+tests\test_api_jwk.py:70:        assert jwk.key_type == "RSA"
+tests\test_api_jwk.py:71:        assert isinstance(jwk.Algorithm, RSAAlgorithm)
+tests\test_api_jwk.py:72:        assert jwk.Algorithm.hash_alg == RSAAlgorithm.SHA256
+tests\test_api_jwk.py:73:        assert jwk.algorithm_name == "RS256"
+tests\test_api_jwk.py:77:        with open(key_path("jwk_rsa_pub.json")) as keyfile:
+tests\test_api_jwk.py:80:        jwk = PyJWK.from_dict(key_data, algorithm="RS256")
+tests\test_api_jwk.py:82:        assert jwk.key_type == "RSA"
+tests\test_api_jwk.py:83:        assert isinstance(jwk.Algorithm, RSAAlgorithm)
+tests\test_api_jwk.py:84:        assert jwk.Algorithm.hash_alg == RSAAlgorithm.SHA256
+tests\test_api_jwk.py:85:        assert jwk.algorithm_name == "RS256"
+tests\test_api_jwk.py:89:        with open(key_path("jwk_ec_pub_P-256.json")) as keyfile:
+tests\test_api_jwk.py:92:        jwk = PyJWK.from_dict(key_data)
+tests\test_api_jwk.py:94:        assert jwk.key_type == "EC"
+tests\test_api_jwk.py:95:        assert isinstance(jwk.Algorithm, ECAlgorithm)
+tests\test_api_jwk.py:96:        assert jwk.Algorithm.hash_alg == ECAlgorithm.SHA256
+tests\test_api_jwk.py:97:        assert jwk.algorithm_name == "ES256"
+tests\test_api_jwk.py:101:        with open(key_path("jwk_ec_pub_P-384.json")) as keyfile:
+tests\test_api_jwk.py:104:        jwk = PyJWK.from_dict(key_data)
+tests\test_api_jwk.py:106:        assert jwk.key_type == "EC"
+tests\test_api_jwk.py:107:        assert isinstance(jwk.Algorithm, ECAlgorithm)
+tests\test_api_jwk.py:108:        assert jwk.Algorithm.hash_alg == ECAlgorithm.SHA384
+tests\test_api_jwk.py:109:        assert jwk.algorithm_name == "ES384"
+tests\test_api_jwk.py:113:        with open(key_path("jwk_ec_pub_P-521.json")) as keyfile:
+tests\test_api_jwk.py:116:        jwk = PyJWK.from_dict(key_data)
+tests\test_api_jwk.py:118:        assert jwk.key_type == "EC"
+tests\test_api_jwk.py:119:        assert isinstance(jwk.Algorithm, ECAlgorithm)
+tests\test_api_jwk.py:120:        assert jwk.Algorithm.hash_alg == ECAlgorithm.SHA512
+tests\test_api_jwk.py:121:        assert jwk.algorithm_name == "ES512"
+tests\test_api_jwk.py:125:        with open(key_path("jwk_ec_pub_secp256k1.json")) as keyfile:
+tests\test_api_jwk.py:128:        jwk = PyJWK.from_dict(key_data)
+tests\test_api_jwk.py:130:        assert jwk.key_type == "EC"
+tests\test_api_jwk.py:131:        assert isinstance(jwk.Algorithm, ECAlgorithm)
+tests\test_api_jwk.py:132:        assert jwk.Algorithm.hash_alg == ECAlgorithm.SHA256
+tests\test_api_jwk.py:133:        assert jwk.algorithm_name == "ES256K"
+tests\test_api_jwk.py:136:    def test_should_load_key_hmac_from_dict(self) -> None:
+tests\test_api_jwk.py:137:        with open(key_path("jwk_hmac.json")) as keyfile:
+tests\test_api_jwk.py:140:        jwk = PyJWK.from_dict(key_data)
+tests\test_api_jwk.py:142:        assert jwk.key_type == "oct"
+tests\test_api_jwk.py:143:        assert isinstance(jwk.Algorithm, HMACAlgorithm)
+tests\test_api_jwk.py:144:        assert jwk.Algorithm.hash_alg == HMACAlgorithm.SHA256
+tests\test_api_jwk.py:145:        assert jwk.algorithm_name == "HS256"
+tests\test_api_jwk.py:148:    def test_should_load_key_hmac_without_alg_from_dict(self) -> None:
+tests\test_api_jwk.py:149:        with open(key_path("jwk_hmac.json")) as keyfile:
+tests\test_api_jwk.py:153:        jwk = PyJWK.from_dict(key_data)
+tests\test_api_jwk.py:155:        assert jwk.key_type == "oct"
+tests\test_api_jwk.py:156:        assert isinstance(jwk.Algorithm, HMACAlgorithm)
+tests\test_api_jwk.py:157:        assert jwk.Algorithm.hash_alg == HMACAlgorithm.SHA256
+tests\test_api_jwk.py:158:        assert jwk.algorithm_name == "HS256"
+tests\test_api_jwk.py:162:        with open(key_path("jwk_okp_pub_Ed25519.json")) as keyfile:
+tests\test_api_jwk.py:165:        jwk = PyJWK.from_dict(key_data)
+tests\test_api_jwk.py:167:        assert jwk.key_type == "OKP"
+tests\test_api_jwk.py:168:        assert isinstance(jwk.Algorithm, OKPAlgorithm)
+tests\test_api_jwk.py:169:        assert jwk.algorithm_name == "EdDSA"
+tests\test_api_jwk.py:173:        with open(key_path("jwk_rsa_pub.json")) as keyfile:
+tests\test_api_jwk.py:175:        with open(key_path("jwk_ec_pub_P-256.json")) as keyfile:
+tests\test_api_jwk.py:177:        with open(key_path("jwk_okp_pub_Ed25519.json")) as keyfile:
+tests\test_api_jwk.py:181:        with pytest.raises(PyJWKError):
+tests\test_api_jwk.py:182:            PyJWK.from_dict(valid_rsa_pub, algorithm="unknown")
+tests\test_api_jwk.py:188:            PyJWK.from_dict(v)
+tests\test_api_jwk.py:194:            PyJWK.from_dict(v)
+tests\test_api_jwk.py:200:            PyJWK.from_dict(v)
+tests\test_api_jwk.py:206:            PyJWK.from_dict(v)
+tests\test_api_jwk.py:212:            PyJWK.from_dict(v)
+tests\test_api_jwk.py:216:        with pytest.raises(PyJWKError) as exc:
+tests\test_api_jwk.py:217:            PyJWK({"kty": "dummy"}, algorithm="RS256")
+tests\test_api_jwk.py:223:            PyJWK({"kty": "dummy"}, algorithm="RS256")
+tests\test_api_jwk.py:226:class TestPyJWKSet:
+tests\test_api_jwk.py:228:    def test_should_load_keys_from_jwk_data_dict(self) -> None:
+tests\test_api_jwk.py:231:        with open(key_path("jwk_rsa_pub.json")) as keyfile:
+tests\test_api_jwk.py:232:            pub_key = algo.from_jwk(keyfile.read())
+tests\test_api_jwk.py:234:        key_data_str = algo.to_jwk(pub_key)
+tests\test_api_jwk.py:237:        # TODO Should `to_jwk` set these?
+tests\test_api_jwk.py:242:        jwk_set = PyJWKSet.from_dict({"keys": [key_data]})
+tests\test_api_jwk.py:243:        jwk = jwk_set.keys[0]
+tests\test_api_jwk.py:245:        assert jwk.key_type == "RSA"
+tests\test_api_jwk.py:246:        assert jwk.key_id == "keyid-abc123"
+tests\test_api_jwk.py:247:        assert jwk.public_key_use == "sig"
+tests\test_api_jwk.py:250:    def test_should_load_keys_from_jwk_data_json_string(self) -> None:
+tests\test_api_jwk.py:253:        with open(key_path("jwk_rsa_pub.json")) as keyfile:
+tests\test_api_jwk.py:254:            pub_key = algo.from_jwk(keyfile.read())
+tests\test_api_jwk.py:256:        key_data_str = algo.to_jwk(pub_key)
+tests\test_api_jwk.py:259:        # TODO Should `to_jwk` set these?
+tests\test_api_jwk.py:264:        jwk_set = PyJWKSet.from_json(json.dumps({"keys": [key_data]}))
+tests\test_api_jwk.py:265:        jwk = jwk_set.keys[0]
+tests\test_api_jwk.py:267:        assert jwk.key_type == "RSA"
+tests\test_api_jwk.py:268:        assert jwk.key_id == "keyid-abc123"
+tests\test_api_jwk.py:269:        assert jwk.public_key_use == "sig"
+tests\test_api_jwk.py:275:        with open(key_path("jwk_rsa_pub.json")) as keyfile:
+tests\test_api_jwk.py:276:            pub_key = algo.from_jwk(keyfile.read())
+tests\test_api_jwk.py:278:        key_data_str = algo.to_jwk(pub_key)
+tests\test_api_jwk.py:281:        # TODO Should `to_jwk` set these?
+tests\test_api_jwk.py:286:        jwk_set = PyJWKSet.from_dict({"keys": [key_data]})
+tests\test_api_jwk.py:288:        jwk = jwk_set.keys[0]
+tests\test_api_jwk.py:289:        assert jwk == jwk_set["keyid-abc123"]
+tests\test_api_jwk.py:292:            _ = jwk_set["this-kid-does-not-exist"]
+tests\test_api_jwk.py:298:        with open(key_path("jwk_rsa_pub.json")) as keyfile:
+tests\test_api_jwk.py:299:            pub_key = algo.from_jwk(keyfile.read())
+tests\test_api_jwk.py:301:        key_data_str = algo.to_jwk(pub_key)
+tests\test_api_jwk.py:304:        jwk_set = PyJWKSet.from_dict({"keys": [key_data]})
+tests\test_api_jwk.py:306:        assert jwk_set.keys == [jwk for jwk in jwk_set]
+tests\test_api_jwk.py:311:        with open(key_path("jwk_keyset_with_unknown_alg.json")) as keyfile:
+tests\test_api_jwk.py:312:            jwks_text = keyfile.read()
+tests\test_api_jwk.py:313:        jwks = json.loads(jwks_text)
+tests\test_api_jwk.py:314:        assert len(jwks.get("keys")) == 2
+tests\test_api_jwk.py:315:        keyset = PyJWKSet.from_json(jwks_text)
+tests\test_api_jwk.py:319:        with open(key_path("jwk_keyset_only_unknown_alg.json")) as keyfile:
+tests\test_api_jwk.py:320:            jwks_text = keyfile.read()
+tests\test_api_jwk.py:321:            jwks = json.loads(jwks_text)
+tests\test_api_jwk.py:322:            assert len(jwks.get("keys")) == 1
+tests\test_api_jwk.py:323:            with pytest.raises(PyJWKSetError):
+tests\test_api_jwk.py:324:                _ = PyJWKSet.from_json(jwks_text)
+tests\test_api_jwk.py:328:        with pytest.raises(PyJWKSetError) as err:
+tests\test_api_jwk.py:329:            PyJWKSet(keys="string")  # type: ignore[arg-type]
+tests\test_api_jwk.py:330:        assert str(err.value) == "Invalid JWK Set value"
+tests\test_api_jwk.py:334:        with pytest.raises(PyJWKSetError) as err:
+tests\test_api_jwk.py:335:            PyJWKSet(keys=[])
+tests\test_api_jwk.py:336:        assert str(err.value) == "The JWK Set did not contain any keys"
+tests\test_api_jwk.py:341:            PyJWKSet(keys=[{"kty": "RSA"}])
+tests\test_api_jws.py:7:from jwt.api_jwk import PyJWK
+tests\test_api_jws.py:94:        token = jws.encode(payload, "secret")
+tests\test_api_jws.py:96:        jws.decode(token, "secret", options={"verify_signature": False})
+tests\test_api_jws.py:105:        secret = "secret"
+tests\test_api_jws.py:106:        jws_message = jws.encode(payload, secret, algorithm="HS256")
+tests\test_api_jws.py:107:        decoded_payload = jws.decode(jws_message, secret, algorithms=["HS256"])
+tests\test_api_jws.py:114:        secret = "secret"
+tests\test_api_jws.py:115:        jws_token = jws.encode(payload, secret, algorithm="HS256")
+tests\test_api_jws.py:116:        jws.decode(jws_token, secret, algorithms=["HS256"])
+tests\test_api_jws.py:119:            jws.decode(jws_token, secret, algorithms=["HS384"])
+tests\test_api_jws.py:122:        secret = "secret"
+tests\test_api_jws.py:129:        jws.decode(unicode_jws, secret, algorithms=["HS256"])
+tests\test_api_jws.py:132:        secret = "secret"
+tests\test_api_jws.py:136:            jws.decode(example_jws, secret, algorithms=["HS256"])
+tests\test_api_jws.py:143:        example_secret = "secret"
+tests\test_api_jws.py:148:                example_secret,
+tests\test_api_jws.py:157:        example_secret = "secret"
+tests\test_api_jws.py:162:                example_secret,
+tests\test_api_jws.py:170:        secret = "secret"
+tests\test_api_jws.py:178:            jws.decode(example_jws, secret, algorithms=["HS256"])
+tests\test_api_jws.py:184:        msg = jws.encode(payload, "secret")
+tests\test_api_jws.py:185:        decoded = jws.decode_complete(msg, "secret", algorithms=["HS256"])
+tests\test_api_jws.py:198:        jws.encode(payload, "secret", algorithm="HS256")
+tests\test_api_jws.py:246:    def test_encode_with_jwk(self, jws: PyJWS, payload: bytes) -> None:
+tests\test_api_jws.py:247:        jwk = PyJWK(
+tests\test_api_jws.py:251:                "k": "c2VjcmV0",  # "secret"
+tests\test_api_jws.py:254:        msg = jws.encode(payload, key=jwk)
+tests\test_api_jws.py:255:        decoded = jws.decode_complete(msg, key=jwk, algorithms=["HS256"])
+tests\test_api_jws.py:265:    def test_encode_with_jwk_uses_key_algorithm(
+tests\test_api_jws.py:268:        """Test that encoding with a PyJWK key uses the key's algorithm
+tests\test_api_jws.py:270:        jwk = PyJWK(
+tests\test_api_jws.py:274:                "k": "c2VjcmV0",  # "secret"
+tests\test_api_jws.py:278:        msg = jws.encode(payload, key=jwk)
+tests\test_api_jws.py:283:        decoded = jws.decode(msg, key=jwk)
+tests\test_api_jws.py:294:            jws.decode(example_jws, "secret", algorithms=["hs256"])
+tests\test_api_jws.py:299:    def test_bad_secret(self, jws: PyJWS, payload: bytes) -> None:
+tests\test_api_jws.py:300:        right_secret = "foo"
+tests\test_api_jws.py:301:        bad_secret = "bar"
+tests\test_api_jws.py:302:        jws_message = jws.encode(payload, right_secret)
+tests\test_api_jws.py:306:            jws.decode(jws_message, bad_secret, algorithms=["HS256"])
+tests\test_api_jws.py:310:            jws.decode(jws_message, bad_secret, algorithms=["HS256"])
+tests\test_api_jws.py:314:        example_secret = "secret"
+tests\test_api_jws.py:321:        decoded_payload = jws.decode(example_jws, example_secret, algorithms=["HS256"])
+tests\test_api_jws.py:326:        example_secret = "secret"
+tests\test_api_jws.py:333:        decoded = jws.decode_complete(example_jws, example_secret, algorithms=["HS256"])
+tests\test_api_jws.py:344:    def test_decodes_with_jwk(self, jws: PyJWS, payload: bytes) -> None:
+tests\test_api_jws.py:345:        jwk = PyJWK(
+tests\test_api_jws.py:349:                "k": "c2VjcmV0",  # "secret"
+tests\test_api_jws.py:358:        decoded_payload = jws.decode(example_jws, jwk, algorithms=["HS256"])
+tests\test_api_jws.py:362:    def test_decodes_with_jwk_and_no_algorithm(
+tests\test_api_jws.py:365:        jwk = PyJWK(
+tests\test_api_jws.py:369:                "k": "c2VjcmV0",  # "secret"
+tests\test_api_jws.py:378:        decoded_payload = jws.decode(example_jws, jwk)
+tests\test_api_jws.py:382:    def test_decodes_with_jwk_and_mismatched_algorithm(
+tests\test_api_jws.py:385:        jwk = PyJWK(
+tests\test_api_jws.py:389:                "k": "c2VjcmV0",  # "secret"
+tests\test_api_jws.py:399:            jws.decode(example_jws, jwk)
+tests\test_api_jws.py:401:    def test_decodes_with_jwk_rejects_header_alg_outside_jwk_alg(
+tests\test_api_jws.py:405:        # HS256, but the PyJWK is bound to HS512. Even though the allow-list
+tests\test_api_jws.py:406:        # would pass, verification must be locked to the PyJWK's algorithm
+tests\test_api_jws.py:410:        jwk = PyJWK(
+tests\test_api_jws.py:414:                "k": "c2VjcmV0",  # "secret"
+tests\test_api_jws.py:426:            jws.decode(example_jws, jwk, algorithms=["HS256", "HS512"])
+tests\test_api_jws.py:474:        example_secret = "secret"
+tests\test_api_jws.py:482:            example_jws, key=example_secret, algorithms=["HS256"]
+tests\test_api_jws.py:487:        right_secret = "foo"
+tests\test_api_jws.py:488:        jws_message = jws.encode(payload, right_secret)
+tests\test_api_jws.py:494:        example_secret = "secret"
+tests\test_api_jws.py:502:            jws.decode(example_jws, key=example_secret)
+tests\test_api_jws.py:510:        example_secret = "secret"
+tests\test_api_jws.py:519:            key=example_secret,
+tests\test_api_jws.py:524:        right_secret = "foo"
+tests\test_api_jws.py:525:        jws_message = jws.encode(payload, right_secret)
+tests\test_api_jws.py:538:    def test_no_secret(self, jws: PyJWS, payload: bytes) -> None:
+tests\test_api_jws.py:539:        right_secret = "foo"
+tests\test_api_jws.py:540:        jws_message = jws.encode(payload, right_secret)
+tests\test_api_jws.py:545:    def test_verify_signature_with_no_secret(self, jws: PyJWS, payload: bytes) -> None:
+tests\test_api_jws.py:546:        right_secret = "foo"
+tests\test_api_jws.py:547:        jws_message = jws.encode(payload, right_secret)
+tests\test_api_jws.py:558:            jws.decode(example_jws, "secret", algorithms=["HS256"])
+tests\test_api_jws.py:562:            jws.encode(payload, "secret", algorithm="HS1024")
+tests\test_api_jws.py:569:            jws.encode(payload, "secret", algorithm="RS256")
+tests\test_api_jws.py:572:    def test_unicode_secret(self, jws: PyJWS, payload: bytes) -> None:
+tests\test_api_jws.py:573:        secret = "\xc2"
+tests\test_api_jws.py:574:        jws_message = jws.encode(payload, secret)
+tests\test_api_jws.py:575:        decoded_payload = jws.decode(jws_message, secret, algorithms=["HS256"])
+tests\test_api_jws.py:579:    def test_nonascii_secret(self, jws: PyJWS, payload: bytes) -> None:
+tests\test_api_jws.py:580:        secret = "\xc2"  # char value that ascii codec cannot decode
+tests\test_api_jws.py:581:        jws_message = jws.encode(payload, secret)
+tests\test_api_jws.py:583:        decoded_payload = jws.decode(jws_message, secret, algorithms=["HS256"])
+tests\test_api_jws.py:587:    def test_bytes_secret(self, jws: PyJWS, payload: bytes) -> None:
+tests\test_api_jws.py:588:        secret = b"\xc2"  # char value that ascii codec cannot decode
+tests\test_api_jws.py:589:        jws_message = jws.encode(payload, secret)
+tests\test_api_jws.py:591:        decoded_payload = jws.decode(jws_message, secret, algorithms=["HS256"])
+tests\test_api_jws.py:614:        example_secret = "secret"
+tests\test_api_jws.py:617:            jws.decode(example_jws, example_secret, algorithms=["HS256"])
+tests\test_api_jws.py:627:        example_secret = "secret"
+tests\test_api_jws.py:630:            jws.decode(example_jws, example_secret, algorithms=["HS256"])
+tests\test_api_jws.py:640:        example_secret = "secret"
+tests\test_api_jws.py:643:            jws.decode(example_jws, example_secret, algorithms=["HS256"])
+tests\test_api_jws.py:653:        example_secret = "secret"
+tests\test_api_jws.py:656:            jws.decode(example_jws, example_secret, algorithms=["HS256"])
+tests\test_api_jws.py:691:            key="secret",
+tests\test_api_jws.py:693:            headers={"kid": "toomanysecrets"},
+tests\test_api_jws.py:699:        assert header["kid"] == "toomanysecrets"
+tests\test_api_jws.py:775:            ("ES256", "jwk_ec_key_P-256.json", "jwk_ec_pub_P-256.json"),
+tests\test_api_jws.py:776:            ("ES256K", "jwk_ec_key_secp256k1.json", "jwk_ec_pub_secp256k1.json"),
+tests\test_api_jws.py:777:            ("ES384", "jwk_ec_key_P-384.json", "jwk_ec_pub_P-384.json"),
+tests\test_api_jws.py:778:            ("ES512", "jwk_ec_key_P-521.json", "jwk_ec_pub_P-521.json"),
+tests\test_api_jws.py:792:        # Load keys from JWK files (each algorithm requires its specific curve)
+tests\test_api_jws.py:794:            priv_eckey = ECAlgorithm.from_jwk(priv_file.read())
+tests\test_api_jws.py:801:            pub_eckey = ECAlgorithm.from_jwk(pub_file.read())
+tests\test_api_jws.py:828:        jws.decode(token, "secret", options={"verify_signature": False})
+tests\test_api_jws.py:831:        token = jws.encode(payload, "secret")
+tests\test_api_jws.py:834:            jws.decode(token, "secret", options=object())  # type: ignore[arg-type]
+tests\test_api_jws.py:837:            jws.decode(token, "secret", options="something")  # type: ignore[arg-type]
+tests\test_api_jws.py:848:            jws.encode(payload, "secret", headers=data)
+tests\test_api_jws.py:851:            payload, "secret", headers=data, json_encoder=CustomJSONEncoder
+tests\test_api_jws.py:864:        token = jws.encode(payload, "secret", headers=headers)
+tests\test_api_jws.py:895:            payload.encode("utf-8"), "secret", headers={"typ": "secevent+jwt"}
+tests\test_api_jws.py:906:        token = jws.encode(payload, "secret", headers={"typ": ""})
+tests\test_api_jws.py:915:        token = jws.encode(payload, "secret", headers={"typ": None})
+tests\test_api_jws.py:925:        token = jws.encode(payload, "secret", "HS256", headers, None)
+tests\test_api_jws.py:938:            jws.encode(payload, "secret", headers={"kid": 123})
+tests\test_api_jws.py:943:            jws.encode(payload, "secret", headers={"kid": None})
+tests\test_api_jws.py:950:        secret = "secret"
+tests\test_api_jws.py:952:            payload, secret, algorithm="HS256", is_payload_detached=True
+tests\test_api_jws.py:955:        jws.decode(jws_message, secret, algorithms=["HS256"], detached_payload=payload)
+tests\test_api_jws.py:960:        secret = "secret"
+tests\test_api_jws.py:964:        token = jws.encode(payload, secret, "HS256", headers)
+tests\test_api_jws.py:977:        token = jws.encode(payload, secret, "HS256", headers)
+tests\test_api_jws.py:991:        secret = "secret"
+tests\test_api_jws.py:992:        token = jws.encode(payload, secret, algorithm="HS256", is_payload_detached=True)
+tests\test_api_jws.py:1003:        secret = "secret"
+tests\test_api_jws.py:1009:            secret,
+tests\test_api_jws.py:1024:        secret = "secret"
+tests\test_api_jws.py:1025:        import hmac as _hmac
+tests\test_api_jws.py:1041:        sig = _hmac.new(secret.encode(), signing_input, _hashlib.sha256).digest()
+tests\test_api_jws.py:1047:            jws.decode(token, secret, algorithms=["HS256"], detached_payload=payload)
+tests\test_api_jws.py:1055:        secret = "secret"
+tests\test_api_jws.py:1056:        import hmac as _hmac
+tests\test_api_jws.py:1064:        sig = _hmac.new(secret.encode(), signing_input, _hashlib.sha256).digest()
+tests\test_api_jws.py:1068:            jws.decode(token, secret, algorithms=["HS256"], detached_payload=payload)
+tests\test_api_jws.py:1073:        example_secret = "secret"
+tests\test_api_jws.py:1075:            payload, example_secret, algorithm="HS256", is_payload_detached=True
+tests\test_api_jws.py:1079:            jws.decode(example_jws, example_secret, algorithms=["HS256"])
+tests\test_api_jws.py:1089:        secret = "secret"
+tests\test_api_jws.py:1091:            payload, secret, algorithm="HS256", is_payload_detached=True
+tests\test_api_jws.py:1097:                secret,
+tests\test_api_jws.py:1111:        secret = "secret"
+tests\test_api_jws.py:1113:            payload, secret, algorithm="HS256", is_payload_detached=True
+tests\test_api_jws.py:1119:                secret,
+tests\test_api_jws.py:1133:        secret = "secret"
+tests\test_api_jws.py:1136:            secret,
+tests\test_api_jws.py:1142:            jws.decode(token, secret, algorithms=["HS256"])
+tests\test_api_jws.py:1145:        secret = "secret"
+tests\test_api_jws.py:1148:            secret,
+tests\test_api_jws.py:1154:            jws.decode(token, secret, algorithms=["HS256"])
+tests\test_api_jws.py:1157:        secret = "secret"
+tests\test_api_jws.py:1160:            secret,
+tests\test_api_jws.py:1166:            jws.decode(token, secret, algorithms=["HS256"])
+tests\test_api_jws.py:1171:        secret = "secret"
+tests\test_api_jws.py:1174:            secret,
+tests\test_api_jws.py:1180:            jws.decode(token, secret, algorithms=["HS256"])
+tests\test_api_jws.py:1185:        secret = "secret"
+tests\test_api_jws.py:1188:            secret,
+tests\test_api_jws.py:1194:            jws.decode(token, secret, algorithms=["HS256"])
+tests\test_api_jws.py:1199:        secret = "secret"
+tests\test_api_jws.py:1202:            secret,
+tests\test_api_jws.py:1210:            secret,
+tests\test_api_jws.py:1219:        secret = "secret"
+tests\test_api_jws.py:1222:            secret,
+tests\test_api_jwt.py:10:from jwt.api_jwk import PyJWK
+tests\test_api_jwt.py:49:    def test_encode_with_jwk_uses_key_algorithm(self, jwt: PyJWT) -> None:
+tests\test_api_jwt.py:50:        """Test that encoding with a PyJWK key uses the key's algorithm
+tests\test_api_jwt.py:52:        jwk = PyJWK(
+tests\test_api_jwt.py:56:                "k": "c2VjcmV0",  # "secret"
+tests\test_api_jwt.py:61:        token = jwt.encode(payload, jwk)
+tests\test_api_jwt.py:62:        header = jwt.decode_complete(token, jwk, algorithms=["HS384"])["header"]
+tests\test_api_jwt.py:67:        example_secret = "secret"
+tests\test_api_jwt.py:73:        decoded_payload = jwt.decode(example_jwt, example_secret, algorithms=["HS256"])
+tests\test_api_jwt.py:79:        example_secret = "secret"
+tests\test_api_jwt.py:85:        decoded = jwt.decode_complete(example_jwt, example_secret, algorithms=["HS256"])
+tests\test_api_jwt.py:98:        example_secret = "secret"
+tests\test_api_jwt.py:106:            example_jwt, key=example_secret, algorithms=["HS256"]
+tests\test_api_jwt.py:117:        example_secret = "secret"
+tests\test_api_jwt.py:120:            jwt.decode(example_jwt, example_secret, algorithms=["HS256"])
+tests\test_api_jwt.py:125:        secret = "secret"
+tests\test_api_jwt.py:133:            jwt.decode(example_jwt, secret, algorithms=["HS256"])
+tests\test_api_jwt.py:141:        secret = "secret"
+tests\test_api_jwt.py:151:                secret,
+tests\test_api_jwt.py:160:        secret = "secret"
+tests\test_api_jwt.py:170:                secret,
+tests\test_api_jwt.py:181:        secret = "secret"
+tests\test_api_jwt.py:191:                secret,
+tests\test_api_jwt.py:205:                lambda t=t: jwt.encode(t, "secret", algorithm="HS256"),
+tests\test_api_jwt.py:215:                key="secret",
+tests\test_api_jwt.py:235:            payload, "secret", algorithm="HS256", headers={"typ": "secevent+jwt"}
+tests\test_api_jwt.py:245:        # >>> jwt.encode({'exp': 'not-an-int'}, 'secret')
+tests\test_api_jwt.py:253:            jwt.decode(example_jwt, "secret", algorithms=["HS256"])
+tests\test_api_jwt.py:258:        # >>> jwt.encode({'iat': 'not-an-int'}, 'secret')
+tests\test_api_jwt.py:266:            jwt.decode(example_jwt, "secret", algorithms=["HS256"])
+tests\test_api_jwt.py:272:        secret = "secret"
+tests\test_api_jwt.py:273:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:276:            jwt.decode(jwt_message, secret, algorithms=["HS256"])
+tests\test_api_jwt.py:282:        secret = "secret"
+tests\test_api_jwt.py:283:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:284:        data = jwt.decode(jwt_message, secret, algorithms=["HS256"])
+tests\test_api_jwt.py:288:        # >>> jwt.encode({'nbf': 'not-an-int'}, 'secret')
+tests\test_api_jwt.py:296:            jwt.decode(example_jwt, "secret", algorithms=["HS256"])
+tests\test_api_jwt.py:299:        # >>> jwt.encode({'aud': None}, 'secret')
+tests\test_api_jwt.py:305:        decoded = jwt.decode(example_jwt, "secret", algorithms=["HS256"])
+tests\test_api_jwt.py:309:        secret = "secret"
+tests\test_api_jwt.py:316:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:318:            jwt_message, secret, leeway=1, algorithms=["HS256"]
+tests\test_api_jwt.py:378:        secret = "secret"
+tests\test_api_jwt.py:379:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:382:            jwt.decode(jwt_message, secret, algorithms=["HS256"])
+tests\test_api_jwt.py:388:        secret = "secret"
+tests\test_api_jwt.py:389:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:392:            jwt.decode(jwt_message, secret, algorithms=["HS256"])
+tests\test_api_jwt.py:398:        secret = "secret"
+tests\test_api_jwt.py:399:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:403:            secret,
+tests\test_api_jwt.py:412:        secret = "secret"
+tests\test_api_jwt.py:413:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:417:            secret,
+tests\test_api_jwt.py:426:        secret = "secret"
+tests\test_api_jwt.py:427:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:432:                jwt_message, secret, leeway=leeway, algorithms=["HS256"]
+tests\test_api_jwt.py:439:                jwt.decode(jwt_message, secret, leeway=leeway, algorithms=["HS256"])
+tests\test_api_jwt.py:445:        secret = "secret"
+tests\test_api_jwt.py:446:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:449:        jwt.decode(jwt_message, secret, leeway=13, algorithms=["HS256"])
+tests\test_api_jwt.py:452:            jwt.decode(jwt_message, secret, leeway=1, algorithms=["HS256"])
+tests\test_api_jwt.py:456:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:457:        jwt.decode(token, "secret", audience="urn:me", algorithms=["HS256"])
+tests\test_api_jwt.py:461:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:464:            "secret",
+tests\test_api_jwt.py:471:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:473:            jwt.decode(token, "secret", algorithms=["HS256"])
+tests\test_api_jwt.py:477:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:481:                "secret",
+tests\test_api_jwt.py:488:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:489:        jwt.decode(token, "secret", audience="urn:me", algorithms=["HS256"])
+tests\test_api_jwt.py:494:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:497:            jwt.decode(token, "secret", audience="urn-me", algorithms=["HS256"])
+tests\test_api_jwt.py:501:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:505:                "secret",
+tests\test_api_jwt.py:516:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:519:            jwt.decode(token, "secret", audience="urn:me", algorithms=["HS256"])
+tests\test_api_jwt.py:526:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:529:            jwt.decode(token, "secret", issuer=issuer, algorithms=["HS256"])
+tests\test_api_jwt.py:538:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:541:            jwt.decode(token, "secret", issuer=issuer, algorithms=["HS256"])
+tests\test_api_jwt.py:545:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:548:            jwt.decode(token, "secret", audience="urn:me", algorithms=["HS256"])
+tests\test_api_jwt.py:556:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:559:            jwt.decode(token, "secret", audience="urn:me", algorithms=["HS256"])
+tests\test_api_jwt.py:566:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:567:        jwt.decode(token, "secret", issuer=issuer, algorithms=["HS256"])
+tests\test_api_jwt.py:572:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:573:        jwt.decode(token, "secret", issuer=issuer, algorithms=["HS256"])
+tests\test_api_jwt.py:580:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:583:            jwt.decode(token, "secret", issuer=issuer, algorithms=["HS256"])
+tests\test_api_jwt.py:590:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:593:            jwt.decode(token, "secret", issuer=issuer, algorithms=["HS256"])
+tests\test_api_jwt.py:597:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:600:            "secret",
+tests\test_api_jwt.py:610:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:613:            "secret",
+tests\test_api_jwt.py:625:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:630:                "secret",
+tests\test_api_jwt.py:644:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:649:                "secret",
+tests\test_api_jwt.py:663:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:668:                "secret",
+tests\test_api_jwt.py:683:            "secret",
+tests\test_api_jwt.py:693:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:696:            "secret",
+tests\test_api_jwt.py:706:        token = jwt.encode(payload, "secret")
+tests\test_api_jwt.py:709:            "secret",
+tests\test_api_jwt.py:723:            jwt.encode(data, "secret", algorithm="HS256")
+tests\test_api_jwt.py:725:        token = jwt.encode(data, "secret", json_encoder=CustomJSONEncoder)
+tests\test_api_jwt.py:726:        payload = jwt.decode(token, "secret", algorithms=["HS256"])
+tests\test_api_jwt.py:734:        secret = "secret"
+tests\test_api_jwt.py:735:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:739:            secret,
+tests\test_api_jwt.py:747:                secret,
+tests\test_api_jwt.py:756:        secret = "secret"
+tests\test_api_jwt.py:757:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:773:        secret = "secret"
+tests\test_api_jwt.py:774:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:777:            jwt.decode(jwt_message, secret)
+tests\test_api_jwt.py:787:        secret = "secret"
+tests\test_api_jwt.py:788:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:790:        jwt.decode(jwt_message, secret, options={"verify_signature": False})
+tests\test_api_jwt.py:795:        secret = "secret"
+tests\test_api_jwt.py:796:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:801:            jwt.decode(jwt_message, secret, verify=False, algorithms=["HS256"])
+tests\test_api_jwt.py:807:                jwt_message, secret, verify=True, options={"verify_signature": False}
+tests\test_api_jwt.py:815:        secret = "secret"
+tests\test_api_jwt.py:816:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:819:            secret,
+tests\test_api_jwt.py:828:        secret = "secret"
+tests\test_api_jwt.py:829:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:832:            jwt.decode(jwt_message, secret, algorithms=["HS256"], foo="bar")
+tests\test_api_jwt.py:842:        secret = "secret"
+tests\test_api_jwt.py:843:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:846:            jwt.decode_complete(jwt_message, secret, algorithms=["HS256"], foo="bar")
+tests\test_api_jwt.py:856:        secret = "secret"
+tests\test_api_jwt.py:858:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:863:            secret,
+tests\test_api_jwt.py:873:                secret,
+tests\test_api_jwt.py:882:        secret = "secret"
+tests\test_api_jwt.py:884:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:889:            secret,
+tests\test_api_jwt.py:901:                secret,
+tests\test_api_jwt.py:910:        secret = "secret"
+tests\test_api_jwt.py:912:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:919:                secret,
+tests\test_api_jwt.py:926:        secret = "secret"
+tests\test_api_jwt.py:928:        jwt_message = jwt.encode(payload, secret)
+tests\test_api_jwt.py:932:            secret,
+tests\test_api_jwt.py:944:        secret = "your-256-bit-secret"
+tests\test_api_jwt.py:945:        token = jwt.encode(payload, secret, algorithm="HS256")
+tests\test_api_jwt.py:946:        decoded = jwt.decode(token, secret, algorithms=["HS256"])
+tests\test_api_jwt.py:951:        secret = "your-256-bit-secret"
+tests\test_api_jwt.py:952:        token = jwt.encode({}, secret, algorithm="HS256")
+tests\test_api_jwt.py:954:        decoded = jwt.decode(token, secret, algorithms=["HS256"])
+tests\test_api_jwt.py:959:        secret = "your-256-bit-secret"
+tests\test_api_jwt.py:960:        token = jwt.encode({}, secret, algorithm="HS256")
+tests\test_api_jwt.py:964:                token, secret, algorithms=["HS256"], options={"require": ["sub"]}
+tests\test_api_jwt.py:971:        secret = "your-256-bit-secret"
+tests\test_api_jwt.py:972:        token = jwt.encode(payload, secret, algorithm="HS256")
+tests\test_api_jwt.py:975:            jwt.decode(token, secret, algorithms=["HS256"])
+tests\test_api_jwt.py:981:        secret = "your-256-bit-secret"
+tests\test_api_jwt.py:982:        token = jwt.encode(payload, secret, algorithm="HS256")
+tests\test_api_jwt.py:984:        decoded = jwt.decode(token, secret, algorithms=["HS256"], subject="user123")
+tests\test_api_jwt.py:992:        secret = "your-256-bit-secret"
+tests\test_api_jwt.py:993:        token = jwt.encode(payload, secret, algorithm="HS256")
+tests\test_api_jwt.py:996:            jwt.decode(token, secret, algorithms=["HS256"], subject="user456")
+tests\test_api_jwt.py:1004:        secret = "your-256-bit-secret"
+tests\test_api_jwt.py:1005:        token = jwt.encode(payload, secret, algorithm="HS256")
+tests\test_api_jwt.py:1007:        decoded = jwt.decode(token, secret, algorithms=["HS256"], subject=None)
+tests\test_api_jwt.py:1016:        secret = "your-256-bit-secret"
+tests\test_api_jwt.py:1017:        token = jwt.encode(payload, secret, algorithm="HS256")
+tests\test_api_jwt.py:1018:        decoded = jwt.decode(token, secret, algorithms=["HS256"])
+tests\test_api_jwt.py:1024:        secret = "your-256-bit-secret"
+tests\test_api_jwt.py:1025:        token = jwt.encode(payload, secret, algorithm="HS256")
+tests\test_api_jwt.py:1029:                token, secret, algorithms=["HS256"], options={"require": ["jti"]}
+tests\test_api_jwt.py:1035:        secret = "your-256-bit-secret"
+tests\test_api_jwt.py:1036:        token = jwt.encode({}, secret, algorithm="HS256")
+tests\test_api_jwt.py:1038:        decoded = jwt.decode(token, secret, algorithms=["HS256"])
+tests\test_api_jwt.py:1047:        secret = "your-256-bit-secret"
+tests\test_api_jwt.py:1048:        token = jwt.encode(payload, secret, algorithm="HS256")
+tests\test_api_jwt.py:1051:            jwt.decode(token, secret, algorithms=["HS256"])
+tests\test_api_jwt.py:1092:        secret = "secret"
+tests\test_api_jwt.py:1096:            secret,
+tests\test_api_jwt.py:1102:            jwt.decode(token, secret, algorithms=["HS256"])
+tests\test_compressed_jwt.py:20:    example_secret = "secret"
+tests\test_compressed_jwt.py:29:        example_jwt, example_secret, algorithms=["HS256"]
+tests\test_jwks_client.py:14:from jwt import PyJWKClient
+tests\test_jwks_client.py:15:from jwt.api_jwk import PyJWK
+tests\test_jwks_client.py:16:from jwt.exceptions import PyJWKClientConnectionError, PyJWKClientError
+tests\test_jwks_client.py:107:class TestPyJWKClient:
+tests\test_jwks_client.py:109:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:113:            jwks_client = PyJWKClient(url, headers=custom_headers)
+tests\test_jwks_client.py:114:            jwk_set = jwks_client.get_jwk_set()
+tests\test_jwks_client.py:119:        assert len(jwk_set.keys) == 1
+tests\test_jwks_client.py:121:    def test_get_jwk_set(self) -> None:
+tests\test_jwks_client.py:122:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:125:            jwks_client = PyJWKClient(url)
+tests\test_jwks_client.py:126:            jwk_set = jwks_client.get_jwk_set()
+tests\test_jwks_client.py:128:        assert len(jwk_set.keys) == 1
+tests\test_jwks_client.py:131:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:134:            jwks_client = PyJWKClient(url)
+tests\test_jwks_client.py:135:            signing_keys = jwks_client.get_signing_keys()
+tests\test_jwks_client.py:138:        assert isinstance(signing_keys[0], PyJWK)
+tests\test_jwks_client.py:141:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:148:            jwks_client = PyJWKClient(url)
+tests\test_jwks_client.py:149:            signing_keys = jwks_client.get_signing_keys()
+tests\test_jwks_client.py:152:        assert isinstance(signing_keys[0], PyJWK)
+tests\test_jwks_client.py:155:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:161:            jwks_client = PyJWKClient(url)
+tests\test_jwks_client.py:163:            with pytest.raises(PyJWKClientError) as exc:
+tests\test_jwks_client.py:164:                jwks_client.get_signing_keys()
+tests\test_jwks_client.py:166:        assert "The JWKS endpoint did not contain any signing keys" in str(exc.value)
+tests\test_jwks_client.py:169:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:173:            jwks_client = PyJWKClient(url)
+tests\test_jwks_client.py:174:            signing_key = jwks_client.get_signing_key(kid)
+tests\test_jwks_client.py:176:        assert isinstance(signing_key, PyJWK)
+tests\test_jwks_client.py:182:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:185:        jwks_client = PyJWKClient(url, cache_keys=True)
+tests\test_jwks_client.py:188:            jwks_client.get_signing_key(kid)
+tests\test_jwks_client.py:193:            jwks_client.get_signing_key(kid)
+tests\test_jwks_client.py:198:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:201:        jwks_client = PyJWKClient(url, cache_jwk_set=False)
+tests\test_jwks_client.py:204:            jwks_client.get_signing_key(kid)
+tests\test_jwks_client.py:209:            jwks_client.get_signing_key(kid)
+tests\test_jwks_client.py:215:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:218:            jwks_client = PyJWKClient(url)
+tests\test_jwks_client.py:219:            signing_key = jwks_client.get_signing_key_from_jwt(token)
+tests\test_jwks_client.py:239:    def test_get_jwk_set_caches_result(self) -> None:
+tests\test_jwks_client.py:240:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:242:        jwks_client = PyJWKClient(url)
+tests\test_jwks_client.py:243:        assert jwks_client.jwk_set_cache is not None
+tests\test_jwks_client.py:246:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:251:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:256:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:258:        jwks_client = PyJWKClient(url, lifespan=1)
+tests\test_jwks_client.py:260:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:267:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:272:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:274:        jwks_client = PyJWKClient(url, cache_jwk_set=False)
+tests\test_jwks_client.py:275:        assert jwks_client.jwk_set_cache is None
+tests\test_jwks_client.py:278:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:280:        assert jwks_client.jwk_set_cache is None
+tests\test_jwks_client.py:287:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:291:    def test_get_jwt_set_failed_refresh_preserves_cached_jwks(self) -> None:
+tests\test_jwks_client.py:293:        # the previous `finally: put(jwk_set=None)` pattern, turning one bad
+tests\test_jwks_client.py:294:        # request from the JWKS endpoint into application-wide auth failure.
+tests\test_jwks_client.py:296:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:298:        jwks_client = PyJWKClient(url)
+tests\test_jwks_client.py:300:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:302:        assert jwks_client.jwk_set_cache is not None
+tests\test_jwks_client.py:303:        assert jwks_client.jwk_set_cache.get() is not None
+tests\test_jwks_client.py:305:        with pytest.raises(PyJWKClientError):
+tests\test_jwks_client.py:307:                jwks_client.get_jwk_set(refresh=True)
+tests\test_jwks_client.py:309:        cached = jwks_client.jwk_set_cache.get()
+tests\test_jwks_client.py:313:            jwks_client.get_jwk_set()
+tests\test_jwks_client.py:318:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:320:        jwks_client = PyJWKClient(url)
+tests\test_jwks_client.py:321:        with pytest.raises(PyJWKClientConnectionError):
+tests\test_jwks_client.py:323:                jwks_client.get_signing_key_from_jwt(token)
+tests\test_jwks_client.py:326:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:327:        jwks_client = PyJWKClient(url)
+tests\test_jwks_client.py:336:            jwks_client.get_signing_key(kid)
+tests\test_jwks_client.py:341:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:342:        jwks_client = PyJWKClient(url)
+tests\test_jwks_client.py:346:        with pytest.raises(PyJWKClientError):
+tests\test_jwks_client.py:350:                jwks_client.get_signing_key(kid)
+tests\test_jwks_client.py:353:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:355:        with pytest.raises(PyJWKClientError):
+tests\test_jwks_client.py:356:            jwks_client = PyJWKClient(url, lifespan=-1)
+tests\test_jwks_client.py:357:            assert jwks_client is None
+tests\test_jwks_client.py:366:            "ldap://internal.test/jwks",
+tests\test_jwks_client.py:369:    def test_pyjwkclient_rejects_non_http_schemes(self, uri: str) -> None:
+tests\test_jwks_client.py:371:        # URIs. PyJWKClient must reject these so callers can't be tricked
+tests\test_jwks_client.py:374:        with pytest.raises(PyJWKClientError, match="Invalid JWKS URI scheme"):
+tests\test_jwks_client.py:375:            PyJWKClient(uri)
+tests\test_jwks_client.py:380:            "http://localhost/jwks.json",
+tests\test_jwks_client.py:381:            "https://example.test/jwks.json",
+tests\test_jwks_client.py:382:            "HTTPS://Example.Test/jwks.json",  # case-insensitive
+tests\test_jwks_client.py:385:    def test_pyjwkclient_accepts_http_https_schemes(self, uri: str) -> None:
+tests\test_jwks_client.py:386:        # Construction succeeds; no fetch is made until get_jwk_set().
+tests\test_jwks_client.py:387:        PyJWKClient(uri)
+tests\test_jwks_client.py:390:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:391:        jwks_client = PyJWKClient(url, timeout=5)
+tests\test_jwks_client.py:393:        with pytest.raises(PyJWKClientError) as exc:
+tests\test_jwks_client.py:395:                jwks_client.get_jwk_set()
+tests\test_jwks_client.py:400:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:402:        jwks_client = PyJWKClient(url, ssl_context=ssl_ctx)
+tests\test_jwks_client.py:405:            jwk_set = jwks_client.get_jwk_set()
+tests\test_jwks_client.py:409:        assert jwk_set is not None
+tests\test_jwks_client.py:412:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:413:        jwks_client = PyJWKClient(
+tests\test_jwks_client.py:421:            with pytest.raises(PyJWKClientError):
+tests\test_jwks_client.py:422:                jwks_client.get_jwk_set()
+tests\test_jwks_client.py:425:        url = "https://dev-87evx9ru.auth0.com/.well-known/jwks.json"
+tests\test_jwks_client.py:426:        jwks_client = PyJWKClient(url)
+tests\test_jwks_client.py:429:            with pytest.raises(PyJWKClientConnectionError):
+tests\test_jwks_client.py:430:                jwks_client.get_jwk_set()
+tests\test_jwt.py:15:    secret = "secret"
+tests\test_jwt.py:16:    jwt_message = jwt.encode(payload, secret, algorithm="HS256")
+tests\test_jwt.py:17:    decoded_payload = jwt.decode(jwt_message, secret, algorithms=["HS256"])

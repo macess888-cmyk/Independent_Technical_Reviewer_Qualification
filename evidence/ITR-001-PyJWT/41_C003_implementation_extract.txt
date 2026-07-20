@@ -1,0 +1,21 @@
+69:        :type ssl_context: ssl.SSLContext or None
+70:        """
+71:        if headers is None:
+72:            headers = {}
+73:        # urllib's default OpenerDirector also handles file://, ftp://, and
+74:        # data: URIs. Reject anything that isn't http(s) eagerly so a caller
+75:        # passing an attacker-influenced URL (e.g. taken from a `jku` token
+76:        # header) can't read local files or reach other unintended schemes.
+77:        scheme = urlparse(uri).scheme.lower()
+78:        if scheme not in ("http", "https"):
+79:            raise PyJWKClientError(
+80:                f"Invalid JWKS URI scheme {scheme!r}: only 'http' and 'https' "
+81:                f"are supported."
+82:            )
+83:        self.uri = uri
+84:        self.jwk_set_cache: JWKSetCache | None = None
+85:        self.headers = headers
+86:        self.timeout = timeout
+87:        self.ssl_context = ssl_context
+88:
+89:        if cache_jwk_set:

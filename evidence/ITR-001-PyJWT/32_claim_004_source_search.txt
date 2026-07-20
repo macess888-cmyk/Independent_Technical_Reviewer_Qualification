@@ -1,0 +1,62 @@
+jwt\algorithms.py:182:    def compute_hash_digest(self, bytestr: bytes) -> bytes:
+jwt\algorithms.py:184:        Compute a hash digest using the specified algorithm's hash algorithm.
+jwt\algorithms.py:341:        # non-key-shaped input naturally. Even a symmetric (kty=oct) JWK
+jwt\api_jwk.py:180:    def __init__(self, jwk_set: PyJWKSet):
+jwt\api_jwk.py:181:        self.jwk_set = jwk_set
+jwt\api_jwk.py:184:    def get_jwk_set(self) -> PyJWKSet:
+jwt\api_jwk.py:185:        return self.jwk_set
+jwt\api_jws.py:194:        signing_input = b".".join(segments)
+jwt\api_jws.py:208:        signature = alg_obj.sign(signing_input, key)
+jwt\api_jws.py:212:        # Don't put the payload content inside the encoded token when detached
+jwt\api_jws.py:249:        payload, signing_input, header, signature = self._load(jwt)
+jwt\api_jws.py:267:            signing_input = b".".join([signing_input.rsplit(b".", 1)[0], payload])
+jwt\api_jws.py:271:                signing_input,
+jwt\api_jws.py:326:            signing_input, crypto_segment = jwt.rsplit(b".", 1)
+jwt\api_jws.py:327:            header_segment, payload_segment = signing_input.split(b".", 1)
+jwt\api_jws.py:366:        return (payload, signing_input, header, signature)
+jwt\api_jws.py:370:        signing_input: bytes,
+jwt\api_jws.py:416:        if not alg_obj.verify(signing_input, prepared_key, signature):
+jwt\api_jwt.py:185:        # consider putting in options
+jwt\api_jwt.py:206:               Do **not** compute the ``algorithms`` parameter based on
+jwt\api_jwt.py:314:        # consider putting in options
+jwt\api_jwt.py:334:               Do **not** compute the ``algorithms`` parameter based on
+jwt\jwks_client.py:14:from .jwk_set_cache import JWKSetCache
+jwt\jwks_client.py:23:        cache_jwk_set: bool = True,
+jwt\jwks_client.py:38:        - ``cache_jwk_set``: Set to ``True`` (the default) to enable this
+jwt\jwks_client.py:60:        :param cache_jwk_set: Enable the JWK Set response cache (Tier 1).
+jwt\jwks_client.py:61:        :type cache_jwk_set: bool
+jwt\jwks_client.py:84:        self.jwk_set_cache: JWKSetCache | None = None
+jwt\jwks_client.py:89:        if cache_jwk_set:
+jwt\jwks_client.py:94:                    f'Lifespan must be greater than 0, the input is "{lifespan}"'
+jwt\jwks_client.py:96:            self.jwk_set_cache = JWKSetCache(lifespan)
+jwt\jwks_client.py:98:            self.jwk_set_cache = None
+jwt\jwks_client.py:106:    def fetch_data(self) -> Any:
+jwt\jwks_client.py:121:                jwk_set = json.load(response)
+jwt\jwks_client.py:130:        # `finally` block with `jwk_set=None` on error clears any
+jwt\jwks_client.py:133:        if self.jwk_set_cache is not None:
+jwt\jwks_client.py:134:            self.jwk_set_cache.put(jwk_set)
+jwt\jwks_client.py:135:        return jwk_set
+jwt\jwks_client.py:137:    def get_jwk_set(self, refresh: bool = False) -> PyJWKSet:
+jwt\jwks_client.py:149:        if self.jwk_set_cache is not None and not refresh:
+jwt\jwks_client.py:150:            data = self.jwk_set_cache.get()
+jwt\jwks_client.py:153:            data = self.fetch_data()
+jwt\jwks_client.py:173:        jwk_set = self.get_jwk_set(refresh)
+jwt\jwks_client.py:175:            jwk_set_key
+jwt\jwks_client.py:176:            for jwk_set_key in jwk_set.keys
+jwt\jwks_client.py:177:            if jwk_set_key.public_key_use in ["sig", None] and jwk_set_key.key_id
+jwt\jwk_set_cache.py:9:        self.jwk_set_with_timestamp: Optional[PyJWTSetWithTimestamp] = None
+jwt\jwk_set_cache.py:12:    def put(self, jwk_set: PyJWKSet) -> None:
+jwt\jwk_set_cache.py:13:        if jwk_set is not None:
+jwt\jwk_set_cache.py:14:            self.jwk_set_with_timestamp = PyJWTSetWithTimestamp(jwk_set)
+jwt\jwk_set_cache.py:17:            self.jwk_set_with_timestamp = None
+jwt\jwk_set_cache.py:20:        if self.jwk_set_with_timestamp is None or self.is_expired():
+jwt\jwk_set_cache.py:23:        return self.jwk_set_with_timestamp.get_jwk_set()
+jwt\jwk_set_cache.py:27:            self.jwk_set_with_timestamp is not None
+jwt\jwk_set_cache.py:30:            > self.jwk_set_with_timestamp.get_timestamp() + self.lifespan
+jwt\utils.py:25:def base64url_decode(input: Union[bytes, str]) -> bytes:
+jwt\utils.py:26:    input_bytes = force_bytes(input)
+jwt\utils.py:28:    rem = len(input_bytes) % 4
+jwt\utils.py:31:        input_bytes += b"=" * (4 - rem)
+jwt\utils.py:33:    return base64.urlsafe_b64decode(input_bytes)
+jwt\utils.py:36:def base64url_encode(input: bytes) -> bytes:
+jwt\utils.py:37:    return base64.urlsafe_b64encode(input).replace(b"=", b"")

@@ -1,0 +1,18 @@
+cachetools==7.1.4
+cffi==2.1.0
+colorama==0.4.6
+cryptography==49.0.0
+distlib==0.4.3
+filelock==3.31.1
+packaging==26.2
+platformdirs==4.10.1
+pluggy==1.6.0
+pycparser==3.0
+-e git+https://github.com/jpadilla/pyjwt.git@7144e4534c34810f4525dc4578a32addd8212cff#egg=PyJWT
+pyproject-api==1.10.1
+python-discovery==1.4.4
+setuptools==83.0.0
+tomli_w==1.2.0
+tox==4.57.1
+virtualenv==21.6.1
+wheel==0.47.0

@@ -1,0 +1,13 @@
+PASS: test_c001_rejects_raw_jwk_json_as_hmac_secret
+PASS: test_c001_preserves_normal_hmac_secret_use
+PASS: test_c002_rejects_token_algorithm_mismatched_to_pyjwk
+PASS: test_c003_rejects_non_http_uri_schemes
+PASS: test_c003_accepts_http_and_https_uri_schemes
+PASS: test_c004_preserves_cached_jwk_set_after_fetch_failure
+PASS: test_c005_rejects_nonempty_compact_payload_when_b64_false
+PASS: test_c005_requires_b64_to_be_declared_critical
+
+Executed: 8
+Passed: 8
+Failed: 0
+Independent reviewer counterexamples: PASS
