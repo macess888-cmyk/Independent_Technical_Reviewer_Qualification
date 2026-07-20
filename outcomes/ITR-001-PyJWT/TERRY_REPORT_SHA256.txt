@@ -1,0 +1,3 @@
+SHA256 hash of outcomes\ITR-001-PyJWT\TERRY_SNYDER_INDEPENDENT_REVIEW_AND_DETERMINATION_v1.0.pdf:
+eb1496464daaaf2efcbd973c5644e0dcc809a493810e8f2db9153a2d897cc211
+CertUtil: -hashfile command completed successfully.
