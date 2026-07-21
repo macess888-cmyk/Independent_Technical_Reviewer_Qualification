@@ -1,0 +1,10 @@
+ITR-003 INDEPENDENT ORIGIN START
+Date: 2026-07-21
+
+No artifact selected.
+No technical question frozen.
+No verifier designed.
+No expected result defined.
+No evaluator-prescribed condition admitted.
+
+Current classification: HOLD

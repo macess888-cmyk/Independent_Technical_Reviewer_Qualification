@@ -1,19 +1,23 @@
 # ITR-003 - STATUS
 
-**Status:** INDEPENDENT OBSERVATION PENDING
+**Status:** INDEPENDENT OBSERVATION COLLECTION OPEN
 
 ## Completed
 
-- ITR-003 independence charter created.
-- Observation record created.
-- Review structure created.
-- Evidence directory created.
-- Evaluator-dependent construction explicitly prohibited.
+- independence charter created;
+- observation record created;
+- candidate-observation register created;
+- observation evidence log created;
+- observation-selection gate created;
+- independent-origin starting state preserved;
+- evaluator-dependent construction prohibited.
 
 ## Not completed
 
-- independent technical condition observed;
-- artifact selected;
+- natural technical condition recorded;
+- origin evidence preserved;
+- observation selected;
+- artifact admitted;
 - review question frozen;
 - carrier designed;
 - tests authored;
@@ -22,7 +26,9 @@
 
 ## Next permitted action
 
-Identify one third-party technical condition independently, without selecting it because an evaluator requested a particular review pattern.
+Record one or more technical conditions genuinely encountered during normal work or use.
+
+Do not search specifically for a convenient review target.
 
 ## Current classification
 
