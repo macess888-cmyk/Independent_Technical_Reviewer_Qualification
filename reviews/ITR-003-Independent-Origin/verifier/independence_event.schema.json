@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Reviewer Independence Event",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_type",
+    "actor",
+    "artifact",
+    "timestamp",
+    "attribution_preserved",
+    "decision_authority"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "event_type": {
+      "enum": [
+        "claim",
+        "review",
+        "criticism",
+        "correction",
+        "evidence_transfer",
+        "method_adoption",
+        "decision",
+        "revision",
+        "conclusion"
+      ]
+    },
+    "actor": {
+      "type": "string"
+    },
+    "artifact": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "source_event_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "attribution_preserved": {
+      "type": "boolean"
+    },
+    "decision_authority": {
+      "type": "string"
+    },
+    "dependency_disclosed": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}
