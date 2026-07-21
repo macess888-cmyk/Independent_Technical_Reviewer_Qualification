@@ -1,0 +1,10 @@
+ITR-004 INDEPENDENT ORIGIN START
+Date: 2026-07-21
+
+Observation recorded independently.
+Claim classification not yet frozen.
+References not yet admitted.
+No expected result defined.
+No evaluator prescribed the method.
+
+Current classification: HOLD
