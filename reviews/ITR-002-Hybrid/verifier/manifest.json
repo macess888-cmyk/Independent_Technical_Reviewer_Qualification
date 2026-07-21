@@ -2,20 +2,96 @@
   "review_id": "ITR-002",
   "review_type": "hybrid_differential_adversarial",
   "reviewer": "Jake Macdonald",
-  "status": "artifact_selection_pending",
+  "status": "final_review_issued_freeze_pending",
   "artifact": {
-    "name": null,
-    "repository": null,
-    "baseline_version": null,
-    "baseline_commit": null,
-    "candidate_version": null,
-    "candidate_commit": null
+    "name": "urllib3",
+    "repository": "https://github.com/urllib3/urllib3",
+    "advisory": "GHSA-v845-jxx5-vc9f",
+    "baseline_version": "2.0.5",
+    "baseline_commit": "d9f85a749488188c286cd50606d159874db94d5f",
+    "candidate_version": "2.0.6",
+    "candidate_commit": "262e3e332209ee93ff70e2b13502c8f20c105ac8"
   },
   "independence": {
     "reviewer_authored_artifact": false,
     "reviewer_contributed_to_artifact": false,
     "reviewer_authored_claims": false,
     "reviewer_defined_release_scope": false
+  },
+  "bounded_claim": {
+    "claim_id": "C-001",
+    "claim_text": "When urllib3 follows a cross-origin redirect, version 2.0.6 removes a caller-supplied Cookie header before sending the redirected request, whereas version 2.0.5 forwards it.",
+    "source": "GHSA-v845-jxx5-vc9f",
+    "baseline_expected": "Cookie header is forwarded to the redirected cross-origin destination.",
+    "candidate_expected": "Cookie header is removed before the redirected cross-origin request."
+  },
+  "admission": {
+    "status": "PASS",
+    "mandatory_gate_count": 12,
+    "mandatory_gates_passed": 12,
+    "same_verifier_baseline_exit_code": 0,
+    "same_verifier_candidate_exit_code": 0,
+    "baseline_cookie_forwarded": true,
+    "candidate_cookie_forwarded": false,
+    "baseline_control_header_preserved": true,
+    "candidate_control_header_preserved": true
+  },
+  "differential_execution": {
+    "status": "PASS",
+    "baseline_version": "2.0.5",
+    "candidate_version": "2.0.6",
+    "baseline_exit_code": 0,
+    "candidate_exit_code": 0,
+    "baseline_response_status": 200,
+    "candidate_response_status": 200,
+    "baseline_cookie_forwarded": true,
+    "candidate_cookie_forwarded": false,
+    "baseline_control_header_preserved": true,
+    "candidate_control_header_preserved": true,
+    "fail_before_pass_after_observed": true
+  },
+  "adversarial_execution": {
+    "status": "PASS",
+    "baseline_case_count": 15,
+    "baseline_passed": 15,
+    "baseline_failed": 0,
+    "baseline_exit_code": 0,
+    "candidate_case_count": 15,
+    "candidate_passed": 15,
+    "candidate_failed": 0,
+    "candidate_exit_code": 0,
+    "failed_case_count": 0,
+    "machine_readable_results_preserved": true
+  },
+  "executed_adversarial_dimensions": [
+    "redirect_status_301",
+    "redirect_status_302",
+    "redirect_status_303",
+    "redirect_status_307",
+    "redirect_status_308",
+    "mixed_case_cookie_header",
+    "same_origin_redirect",
+    "cross_origin_redirect",
+    "hostname_change",
+    "port_change",
+    "multiple_redirect_hops",
+    "redirects_disabled",
+    "empty_cookie_value",
+    "unrelated_header_preservation",
+    "authorization_header_comparison",
+    "explicit_remove_headers_on_redirect_override"
+  ],
+  "classifications": {
+    "third_party_independence": "PASS",
+    "frozen_baseline_identity": "PASS",
+    "frozen_candidate_identity": "PASS",
+    "artifact_admission": "PASS",
+    "claim_confirmation": "PASS",
+    "baseline_discrimination": "PASS",
+    "differential_proof": "PASS",
+    "reproducible_carrier": "PASS",
+    "adversarial_challenge": "PASS",
+    "final_hybrid_determination": "PASS"
   },
   "required_layers": [
     "claim_confirmation",
@@ -29,5 +105,27 @@
     "PARTIAL",
     "FAIL",
     "HOLD"
-  ]
+  ],
+  "prohibited_promotions": [
+    "complete_urllib3_security",
+    "complete_redirect_security",
+    "comprehensive_ssrf_protection",
+    "absence_of_unrelated_vulnerabilities",
+    "correctness_across_all_platforms_and_python_versions",
+    "qualification_across_unrelated_artifact_classes",
+    "full_adversarial_security_review_qualification"
+  ],
+  "final_review": {
+    "issued": true,
+    "path": "reviews/ITR-002-Hybrid/review/ITR-002_INDEPENDENT_TECHNICAL_REVIEW.md",
+    "sha256": "5118aa872f4e0b22b0866f3fd287ea97268dda4b7ca4528735891e9d7064b772",
+    "hash_preserved": true,
+    "evidence_inventory_preserved": true,
+    "frozen_tag_created": false
+  },
+  "verifier_hashes": {
+    "differential_verifier_sha256": "775e67819cfa879d22b4fc549190397fb489553a4611e1b4b0560f634e306e8d",
+    "adversarial_matrix_sha256": "d82b7d5bbe47305fa46ddd6cb909279ecf6d273157b1ca6bf068e056bdf5a4a3"
+  },
+  "next_permitted_action": "Commit and freeze the completed ITR-002 review package without altering its technical evidence."
 }

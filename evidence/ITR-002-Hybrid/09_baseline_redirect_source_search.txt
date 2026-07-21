@@ -1,0 +1,108 @@
+src\urllib3\connectionpool.py:428:            immediately. Also, instead of raising a MaxRetryError on redirects,
+src\urllib3\connectionpool.py:429:            the redirect response will be returned.
+src\urllib3\connectionpool.py:602:        redirect: bool = True,
+src\urllib3\connectionpool.py:656:            immediately. Also, instead of raising a MaxRetryError on redirects,
+src\urllib3\connectionpool.py:657:            the redirect response will be returned.
+src\urllib3\connectionpool.py:661:        :param redirect:
+src\urllib3\connectionpool.py:662:            If True, automatically handle redirects (status codes 301, 302,
+src\urllib3\connectionpool.py:663:            303, 307, 308). Each redirect counts as a retry. Disabling retries
+src\urllib3\connectionpool.py:664:            will disable redirect, too.
+src\urllib3\connectionpool.py:705:            redirect. Typically this won't need to be set because urllib3 will
+src\urllib3\connectionpool.py:715:            retries = Retry.from_int(retries, redirect=redirect, default=self.retries)
+src\urllib3\connectionpool.py:763:        # for future rewinds in the event of a redirect/retry.
+src\urllib3\connectionpool.py:880:                redirect,
+src\urllib3\connectionpool.py:892:        # Handle redirect?
+src\urllib3\connectionpool.py:893:        redirect_location = redirect and response.get_redirect_location()
+src\urllib3\connectionpool.py:894:        if redirect_location:
+src\urllib3\connectionpool.py:901:                if retries.raise_on_redirect:
+src\urllib3\connectionpool.py:908:            log.debug("Redirecting %s -> %s", url, redirect_location)
+src\urllib3\connectionpool.py:911:                redirect_location,
+src\urllib3\connectionpool.py:915:                redirect=redirect,
+src\urllib3\connectionpool.py:947:                redirect=redirect,
+src\urllib3\poolmanager.py:410:        self, method: str, url: str, redirect: bool = True, **kw: typing.Any
+src\urllib3\poolmanager.py:414:        with custom cross-host redirect logic and only sends the request-uri
+src\urllib3\poolmanager.py:435:        kw["redirect"] = False
+src\urllib3\poolmanager.py:445:        redirect_location = redirect and response.get_redirect_location()
+src\urllib3\poolmanager.py:446:        if not redirect_location:
+src\urllib3\poolmanager.py:449:        # Support relative URLs for redirecting.
+src\urllib3\poolmanager.py:450:        redirect_location = urljoin(url, redirect_location)
+src\urllib3\poolmanager.py:458:            retries = Retry.from_int(retries, redirect=redirect)
+src\urllib3\poolmanager.py:460:        # Strip headers marked as unsafe to forward to the redirected location.
+src\urllib3\poolmanager.py:461:        # Check remove_headers_on_redirect to avoid a potential network call within
+src\urllib3\poolmanager.py:463:        if retries.remove_headers_on_redirect and not conn.is_same_host(
+src\urllib3\poolmanager.py:464:            redirect_location
+src\urllib3\poolmanager.py:468:                if header.lower() in retries.remove_headers_on_redirect:
+src\urllib3\poolmanager.py:475:            if retries.raise_on_redirect:
+src\urllib3\poolmanager.py:481:        kw["redirect"] = redirect
+src\urllib3\poolmanager.py:483:        log.info("Redirecting %s -> %s", url, redirect_location)
+src\urllib3\poolmanager.py:486:        return self.urlopen(method, redirect_location, **kw)
+src\urllib3\poolmanager.py:619:        self, method: str, url: str, redirect: bool = True, **kw: typing.Any
+src\urllib3\poolmanager.py:630:        return super().urlopen(method, url, redirect=redirect, **kw)
+src\urllib3\response.py:288:    REDIRECT_STATUSES = [301, 302, 303, 307, 308]
+src\urllib3\response.py:329:    def get_redirect_location(self) -> str | None | Literal[False]:
+src\urllib3\response.py:331:        Should we redirect and where to?
+src\urllib3\response.py:333:        :returns: Truthy redirect location string if we got a redirect status
+src\urllib3\response.py:334:            code and valid location. ``None`` if redirect status and no
+src\urllib3\response.py:335:            location. ``False`` if not a redirect status code.
+src\urllib3\response.py:337:        if self.status in self.REDIRECT_STATUSES:
+src\urllib3\response.py:376:        # Override the request_url if retries has a redirect location.
+src\urllib3\response.py:378:            self.url = retries.history[-1].redirect_location
+src\urllib3\response.py:496:    # Compatibility method for http.cookiejar
+src\urllib3\response.py:1108:        If the request that generated this response redirected, this method
+src\urllib3\response.py:1109:        will return the final redirect location.
+src\urllib3\util\request.py:157:    Primarily used for request redirects and retries.
+src\urllib3\util\request.py:171:                "An error occurred when rewinding request body for redirect/retry."
+src\urllib3\util\request.py:176:            "request body during a redirect/retry."
+src\urllib3\util\retry.py:36:    redirect_location: str | None
+src\urllib3\util\retry.py:49:        retries = Retry(connect=5, read=2, redirect=5)
+src\urllib3\util\retry.py:76:        Set to ``False`` to disable and imply ``raise_on_redirect=False``.
+src\urllib3\util\retry.py:94:    :param int redirect:
+src\urllib3\util\retry.py:95:        How many redirects to perform. Limit this to avoid infinite redirect
+src\urllib3\util\retry.py:98:        A redirect is a HTTP response with a status code 301, 302, 303, 307 or
+src\urllib3\util\retry.py:103:        Set to ``False`` to disable and imply ``raise_on_redirect=False``.
+src\urllib3\util\retry.py:116:        Other errors are errors that are not connect, read, redirect or status errors.
+src\urllib3\util\retry.py:158:    :param bool raise_on_redirect: Whether, if the number of redirects is
+src\urllib3\util\retry.py:162:    :param bool raise_on_status: Similar meaning to ``raise_on_redirect``:
+src\urllib3\util\retry.py:175:    :param Collection remove_headers_on_redirect:
+src\urllib3\util\retry.py:177:        indicating a redirect is returned before firing off the redirected
+src\urllib3\util\retry.py:189:    #: Default headers to be used for ``remove_headers_on_redirect``
+src\urllib3\util\retry.py:190:    DEFAULT_REMOVE_HEADERS_ON_REDIRECT = frozenset(["Authorization"])
+src\urllib3\util\retry.py:203:        redirect: bool | int | None = None,
+src\urllib3\util\retry.py:210:        raise_on_redirect: bool = True,
+src\urllib3\util\retry.py:214:        remove_headers_on_redirect: typing.Collection[
+src\urllib3\util\retry.py:216:        ] = DEFAULT_REMOVE_HEADERS_ON_REDIRECT,
+src\urllib3\util\retry.py:225:        if redirect is False or total is False:
+src\urllib3\util\retry.py:226:            redirect = 0
+src\urllib3\util\retry.py:227:            raise_on_redirect = False
+src\urllib3\util\retry.py:229:        self.redirect = redirect
+src\urllib3\util\retry.py:234:        self.raise_on_redirect = raise_on_redirect
+src\urllib3\util\retry.py:238:        self.remove_headers_on_redirect = frozenset(
+src\urllib3\util\retry.py:239:            h.lower() for h in remove_headers_on_redirect
+src\urllib3\util\retry.py:248:            redirect=self.redirect,
+src\urllib3\util\retry.py:255:            raise_on_redirect=self.raise_on_redirect,
+src\urllib3\util\retry.py:258:            remove_headers_on_redirect=self.remove_headers_on_redirect,
+src\urllib3\util\retry.py:270:        redirect: bool | int | None = True,
+src\urllib3\util\retry.py:280:        redirect = bool(redirect) and None
+src\urllib3\util\retry.py:281:        new_retries = cls(retries, redirect=redirect)
+src\urllib3\util\retry.py:290:        # We want to consider only the last consecutive errors sequence (Ignore redirects).
+src\urllib3\util\retry.py:293:                takewhile(lambda x: x.redirect_location is None, reversed(self.history))
+src\urllib3\util\retry.py:413:                self.redirect,
+src\urllib3\util\retry.py:453:        redirect = self.redirect
+src\urllib3\util\retry.py:458:        redirect_location = None
+src\urllib3\util\retry.py:479:        elif response and response.get_redirect_location():
+src\urllib3\util\retry.py:480:            # Redirect retry?
+src\urllib3\util\retry.py:481:            if redirect is not None:
+src\urllib3\util\retry.py:482:                redirect -= 1
+src\urllib3\util\retry.py:483:            cause = "too many redirects"
+src\urllib3\util\retry.py:484:            response_redirect_location = response.get_redirect_location()
+src\urllib3\util\retry.py:485:            if response_redirect_location:
+src\urllib3\util\retry.py:486:                redirect_location = response_redirect_location
+src\urllib3\util\retry.py:500:            RequestHistory(method, url, error, status, redirect_location),
+src\urllib3\util\retry.py:507:            redirect=redirect,
+src\urllib3\util\retry.py:524:            f"read={self.read}, redirect={self.redirect}, status={self.status})"
+src\urllib3\_collections.py:229:    >>> headers.add('Set-Cookie', 'foo=bar')
+src\urllib3\_collections.py:230:    >>> headers.add('set-cookie', 'baz=quxx')
+src\urllib3\_collections.py:232:    >>> headers['SET-cookie']
+src\urllib3\_collections.py:399:    # Backwards compatibility for http.cookiejar
+src\urllib3\__init__.py:142:    redirect: bool | None = True,
+src\urllib3\__init__.py:162:        redirect=redirect,

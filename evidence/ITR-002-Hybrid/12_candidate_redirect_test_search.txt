@@ -1,0 +1,246 @@
+test\test_collections.py:149:    header_dict = HTTPHeaderDict(Cookie="foo")
+test\test_collections.py:150:    header_dict.add("cookie", "bar")
+test\test_collections.py:182:            ("cookie", "C"),
+test\test_collections.py:183:            ("cookie", "D"),
+test\test_collections.py:184:            ("cookie", "E"),
+test\test_collections.py:189:        clist = h.getlist("cookie")
+test\test_collections.py:198:            ("cookie", "C"),
+test\test_collections.py:199:            ("cookie", "D"),
+test\test_collections.py:200:            ("cookie", "E"),
+test\test_collections.py:206:        clist = h.getlist("cookie")
+test\test_collections.py:214:        d["Cookie"] = "foo"
+test\test_collections.py:217:        d[b"Cookie"] = "bar"  # type: ignore[index]
+test\test_collections.py:218:        assert d["cookie"] == "bar"
+test\test_collections.py:219:        d["cookie"] = "with, comma"
+test\test_collections.py:220:        assert d.getlist("cookie") == ["with, comma"]
+test\test_collections.py:223:        d.update(dict(Cookie="foo"))
+test\test_collections.py:224:        assert d["cookie"] == "foo"
+test\test_collections.py:225:        d.update(dict(cookie="with, comma"))
+test\test_collections.py:226:        assert d.getlist("cookie") == ["with, comma"]
+test\test_collections.py:229:        del d["cookie"]
+test\test_collections.py:230:        assert "cookie" not in d
+test\test_collections.py:231:        assert "COOKIE" not in d
+test\test_collections.py:234:        d.add("COOKIE", "asdf")
+test\test_collections.py:235:        assert d.getlist("cookie") == ["foo", "bar", "asdf"]
+test\test_collections.py:236:        assert d["cookie"] == "foo, bar, asdf"
+test\test_collections.py:248:        d.extend([("set-cookie", "100"), ("set-cookie", "200"), ("set-cookie", "300")])
+test\test_collections.py:249:        assert d["set-cookie"] == "100, 200, 300"
+test\test_collections.py:252:        d.extend(dict(cookie="asdf"), b="100")
+test\test_collections.py:253:        assert d["cookie"] == "foo, bar, asdf"
+test\test_collections.py:255:        d.add("cookie", "with, comma")
+test\test_collections.py:256:        assert d.getlist("cookie") == ["foo", "bar", "asdf", "with, comma"]
+test\test_collections.py:259:        h = NonMappingHeaderContainer(Cookie="foo", e="foofoo")
+test\test_collections.py:261:        assert d["cookie"] == "foo, bar, foo"
+test\test_collections.py:270:            ("Cookie", "foo"),
+test\test_collections.py:271:            ("Cookie", "bar"),
+test\test_collections.py:278:            ("Cookie", "foo"),
+test\test_collections.py:279:            ("Cookie", "bar"),
+test\test_collections.py:294:        h = HTTPHeaderDict(Cookie="foo", e="foofoo")
+test\test_collections.py:296:        assert d["cookie"] == "foo, bar, foo"
+test\test_collections.py:315:        assert d.getlist("cookie") == ["foo", "bar"]
+test\test_collections.py:316:        assert d.getlist("Cookie") == ["foo", "bar"]
+test\test_collections.py:322:        assert d.getlist("cookie") == HTTPHeaderDict(d).getlist("cookie")
+test\test_collections.py:325:        b = HTTPHeaderDict(cookie="foo, bar")
+test\test_collections.py:326:        c = NonMappingHeaderContainer(cookie="foo, bar")
+test\test_collections.py:327:        e = [("cookie", "foo, bar")]
+test\test_collections.py:334:        b = HTTPHeaderDict(cookie="foo, bar")
+test\test_collections.py:335:        c = NonMappingHeaderContainer(cookie="foo, bar")
+test\test_collections.py:336:        e = [("cookie", "foo, bar")]
+test\test_collections.py:343:        key = "Cookie"
+test\test_collections.py:354:        d.discard("cookie")
+test\test_collections.py:355:        assert "cookie" not in d
+test\test_collections.py:356:        d.discard("cookie")
+test\test_collections.py:360:        d.add("cookie", "bla")
+test\test_collections.py:366:        rep = "HTTPHeaderDict({'Cookie': 'foo, bar'})"
+test\test_collections.py:373:            ("Cookie", "foo"),
+test\test_collections.py:374:            ("Cookie", "bar"),
+test\test_collections.py:376:        assert ("Cookie", "foo") in items
+test\test_collections.py:377:        assert ("Cookie", "bar") in items
+test\test_collections.py:379:        assert ("Cookie", "not_present") not in items
+test\test_collections.py:380:        assert ("Cookie", 1) not in items  # type: ignore[comparison-overlap]
+test\test_collections.py:381:        assert "Cookie" not in items  # type: ignore[comparison-overlap]
+test\test_collections.py:418:        assert "cookie" in d
+test\test_collections.py:419:        assert "CoOkIe" in d
+test\test_collections.py:420:        assert "Not a cookie" not in d
+test\test_collections.py:428:        to_merge = {"Cookie": "tim-tam"}
+test\test_collections.py:430:        assert result == HTTPHeaderDict({"Cookie": "foo, bar, tim-tam"})
+test\test_collections.py:431:        assert to_merge == {"Cookie": "tim-tam"}
+test\test_collections.py:432:        assert d == HTTPHeaderDict({"Cookie": "foo, bar"})
+test\test_collections.py:435:        to_merge = {"Cookie": "tim-tam"}
+test\test_collections.py:437:        assert result == HTTPHeaderDict({"Cookie": "tim-tam, foo, bar"})
+test\test_collections.py:438:        assert to_merge == {"Cookie": "tim-tam"}
+test\test_collections.py:439:        assert d == HTTPHeaderDict({"Cookie": "foo, bar"})
+test\test_collections.py:442:        to_merge = {"Cookie": "tim-tam"}
+test\test_collections.py:444:        assert d == HTTPHeaderDict({"Cookie": "foo, bar, tim-tam"})
+test\test_compatibility.py:3:import http.cookiejar
+test\test_compatibility.py:9:class TestCookiejar:
+test\test_compatibility.py:12:        cookiejar = http.cookiejar.CookieJar()
+test\test_compatibility.py:15:        cookies = [
+test\test_compatibility.py:19:        for c in cookies:
+test\test_compatibility.py:20:            response.headers.add("set-cookie", c)
+test\test_compatibility.py:21:        cookiejar.extract_cookies(response, request)  # type: ignore[arg-type]
+test\test_compatibility.py:22:        assert len(cookiejar) == len(cookies)
+test\test_response.py:1155:                redirect_location="https://example.com/",
+test\test_response.py:1162:                redirect_location="https://www.example.com",
+test\test_retry.py:27:            == "Retry(total=10, connect=None, read=None, redirect=None, status=None)"
+test\test_retry.py:33:            == "Retry(total=7, connect=None, read=None, redirect=None, status=None)"
+test\test_retry.py:87:        assert retry.redirect is None
+test\test_retry.py:100:        assert Retry(0).raise_on_redirect
+test\test_retry.py:101:        assert not Retry(False).raise_on_redirect
+test\test_retry.py:220:    def test_backoff_reset_after_redirect(self) -> None:
+test\test_retry.py:221:        retry = Retry(total=100, redirect=5, backoff_factor=0.2)
+test\test_retry.py:225:        redirect_response = HTTPResponse(status=302, headers={"location": "test"})
+test\test_retry.py:226:        retry = retry.increment(method="GET", response=redirect_response)
+test\test_retry.py:280:        assert "Caused by redirect" not in str(e.value)
+test\test_retry.py:286:        assert "Caused by redirect" not in str(e.value)
+test\test_retry.py:295:        assert "Caused by redirect" not in str(e.value)
+test\test_retry.py:301:        assert "Caused by redirect" not in str(e.value)
+test\test_retry.py:334:    def test_retry_default_remove_headers_on_redirect(self) -> None:
+test\test_retry.py:337:        assert retry.remove_headers_on_redirect == {"authorization", "cookie"}
+test\test_retry.py:339:    def test_retry_set_remove_headers_on_redirect(self) -> None:
+test\test_retry.py:340:        retry = Retry(remove_headers_on_redirect=["X-API-Secret"])
+test\test_retry.py:342:        assert retry.remove_headers_on_redirect == {"x-api-secret"}
+test\test_util.py:258:            "/redirect?target=http://localhost:61020/",
+test\test_util.py:259:            Url(path="redirect", query="target=http://localhost:61020/"),
+test\with_dummyserver\test_chunked_transfer.py:218:    def test_preserve_chunked_on_redirect(
+test\with_dummyserver\test_chunked_transfer.py:233:                        b"Location: /redirect\r\n\r\n"
+test\with_dummyserver\test_chunked_transfer.py:242:                retries = Retry(redirect=1)
+test\with_dummyserver\test_connectionpool.py:468:    def test_redirect_relative_url_no_deprecation(self) -> None:
+test\with_dummyserver\test_connectionpool.py:472:                pool.request("GET", "/redirect", fields={"target": "/"})
+test\with_dummyserver\test_connectionpool.py:474:    def test_redirect(self) -> None:
+test\with_dummyserver\test_connectionpool.py:476:            r = pool.request("GET", "/redirect", fields={"target": "/"}, redirect=False)
+test\with_dummyserver\test_connectionpool.py:479:            r = pool.request("GET", "/redirect", fields={"target": "/"})
+test\with_dummyserver\test_connectionpool.py:855:                    "/redirect",
+test\with_dummyserver\test_connectionpool.py:863:                "/redirect",
+test\with_dummyserver\test_connectionpool.py:1110:                pool.request("GET", "/redirect", fields={"target": "/"}, retries=0)
+test\with_dummyserver\test_connectionpool.py:1113:        """Disabled retries should disable redirect handling."""
+test\with_dummyserver\test_connectionpool.py:1115:            r = pool.request("GET", "/redirect", fields={"target": "/"}, retries=False)
+test\with_dummyserver\test_connectionpool.py:1120:                "/redirect",
+test\with_dummyserver\test_connectionpool.py:1122:                retries=Retry(redirect=False),
+test\with_dummyserver\test_connectionpool.py:1224:    def test_retry_redirect_history(self) -> None:
+test\with_dummyserver\test_connectionpool.py:1226:            resp = pool.request("GET", "/redirect", fields={"target": "/"})
+test\with_dummyserver\test_connectionpool.py:1230:                RequestHistory("GET", "/redirect?target=%2F", None, 303, "/"),
+test\with_dummyserver\test_connectionpool.py:1233:    def test_multi_redirect_history(self) -> None:
+test\with_dummyserver\test_connectionpool.py:1237:                "/multi_redirect",
+test\with_dummyserver\test_connectionpool.py:1238:                fields={"redirect_codes": "303,302,200"},
+test\with_dummyserver\test_connectionpool.py:1239:                redirect=False,
+test\with_dummyserver\test_connectionpool.py:1248:                "/multi_redirect",
+test\with_dummyserver\test_connectionpool.py:1250:                fields={"redirect_codes": "303,302,301,307,302,200"},
+test\with_dummyserver\test_connectionpool.py:1253:            assert r.data == b"Done redirecting"
+test\with_dummyserver\test_connectionpool.py:1256:                (303, "/multi_redirect?redirect_codes=302,301,307,302,200"),
+test\with_dummyserver\test_connectionpool.py:1257:                (302, "/multi_redirect?redirect_codes=301,307,302,200"),
+test\with_dummyserver\test_connectionpool.py:1258:                (301, "/multi_redirect?redirect_codes=307,302,200"),
+test\with_dummyserver\test_connectionpool.py:1259:                (307, "/multi_redirect?redirect_codes=302,200"),
+test\with_dummyserver\test_connectionpool.py:1260:                (302, "/multi_redirect?redirect_codes=200"),
+test\with_dummyserver\test_connectionpool.py:1264:                (history.status, history.redirect_location)
+test\with_dummyserver\test_connectionpool.py:1329:    def test_redirect_after(self) -> None:
+test\with_dummyserver\test_connectionpool.py:1331:            r = pool.request("GET", "/redirect_after", retries=False)
+test\with_dummyserver\test_connectionpool.py:1335:            r = pool.request("GET", "/redirect_after")
+test\with_dummyserver\test_connectionpool.py:1342:            r = pool.request("GET", "/redirect_after?date=" + str(timestamp))
+test\with_dummyserver\test_connectionpool.py:1350:            r = pool.request("GET", "/redirect_after?date=" + str(timestamp))
+test\with_dummyserver\test_connectionpool.py:1356:class TestFileBodiesOnRetryOrRedirect(HTTPDummyServerTestCase):
+test\with_dummyserver\test_connectionpool.py:1376:                redirect=False,
+test\with_dummyserver\test_connectionpool.py:1380:    def test_redirect_put_file(self) -> None:
+test\with_dummyserver\test_connectionpool.py:1381:        """PUT with file object should work with a redirection response"""
+test\with_dummyserver\test_connectionpool.py:1389:                "test-name": "test_redirect_put_file",
+test\with_dummyserver\test_connectionpool.py:1392:            url = "/redirect?target=/echo&status=307"
+test\with_dummyserver\test_connectionpool.py:1400:                redirect=True,
+test\with_dummyserver\test_connectionpool.py:1405:    def test_redirect_with_failed_tell(self) -> None:
+test\with_dummyserver\test_connectionpool.py:1413:        url = "/redirect?target=/successful_retry"
+test\with_dummyserver\test_connectionpool.py:1434:class TestRedirectPoolSize(HTTPDummyServerTestCase):
+test\with_dummyserver\test_connectionpool.py:1435:    def test_pool_size_redirect(self) -> None:
+test\with_dummyserver\test_connectionpool.py:1437:            total=1, raise_on_status=False, status_forcelist=[404], redirect=True
+test\with_dummyserver\test_connectionpool.py:1442:            pool.urlopen("GET", "/redirect", preload_content=False)
+test\with_dummyserver\test_poolmanager.py:26:    def test_redirect(self) -> None:
+test\with_dummyserver\test_poolmanager.py:30:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:32:                redirect=False,
+test\with_dummyserver\test_poolmanager.py:39:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:46:    def test_redirect_twice(self) -> None:
+test\with_dummyserver\test_poolmanager.py:50:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:51:                fields={"target": f"{self.base_url}/redirect"},
+test\with_dummyserver\test_poolmanager.py:52:                redirect=False,
+test\with_dummyserver\test_poolmanager.py:59:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:60:                fields={"target": f"{self.base_url}/redirect?target={self.base_url}/"},
+test\with_dummyserver\test_poolmanager.py:66:    def test_redirect_to_relative_url(self) -> None:
+test\with_dummyserver\test_poolmanager.py:70:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:71:                fields={"target": "/redirect"},
+test\with_dummyserver\test_poolmanager.py:72:                redirect=False,
+test\with_dummyserver\test_poolmanager.py:78:                "GET", f"{self.base_url}/redirect", fields={"target": "/redirect"}
+test\with_dummyserver\test_poolmanager.py:84:    def test_cross_host_redirect(self) -> None:
+test\with_dummyserver\test_poolmanager.py:90:                    f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:98:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:108:    def test_too_many_redirects(self) -> None:
+test\with_dummyserver\test_poolmanager.py:113:                    f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:115:                        "target": f"{self.base_url}/redirect?target={self.base_url}/"
+test\with_dummyserver\test_poolmanager.py:124:                    f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:126:                        "target": f"{self.base_url}/redirect?target={self.base_url}/"
+test\with_dummyserver\test_poolmanager.py:128:                    retries=Retry(total=None, redirect=1),
+test\with_dummyserver\test_poolmanager.py:132:            # Even with preload_content=False and raise on redirects, we reused the same
+test\with_dummyserver\test_poolmanager.py:138:    def test_redirect_cross_host_remove_headers(self) -> None:
+test\with_dummyserver\test_poolmanager.py:142:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:144:                headers={"Authorization": "foo", "Cookie": "foo=bar"},
+test\with_dummyserver\test_poolmanager.py:152:            assert "Cookie" not in data
+test\with_dummyserver\test_poolmanager.py:156:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:158:                headers={"authorization": "foo", "cookie": "foo=bar"},
+test\with_dummyserver\test_poolmanager.py:167:            assert "cookie" not in data
+test\with_dummyserver\test_poolmanager.py:168:            assert "Cookie" not in data
+test\with_dummyserver\test_poolmanager.py:170:    def test_redirect_cross_host_no_remove_headers(self) -> None:
+test\with_dummyserver\test_poolmanager.py:174:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:176:                headers={"Authorization": "foo", "Cookie": "foo=bar"},
+test\with_dummyserver\test_poolmanager.py:177:                retries=Retry(remove_headers_on_redirect=[]),
+test\with_dummyserver\test_poolmanager.py:185:            assert data["Cookie"] == "foo=bar"
+test\with_dummyserver\test_poolmanager.py:187:    def test_redirect_cross_host_set_removed_headers(self) -> None:
+test\with_dummyserver\test_poolmanager.py:191:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:196:                    "Cookie": "foo=bar",
+test\with_dummyserver\test_poolmanager.py:198:                retries=Retry(remove_headers_on_redirect=["X-API-Secret"]),
+test\with_dummyserver\test_poolmanager.py:207:            assert data["Cookie"] == "foo=bar"
+test\with_dummyserver\test_poolmanager.py:212:                "cookie": "foo=bar",
+test\with_dummyserver\test_poolmanager.py:216:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:219:                retries=Retry(remove_headers_on_redirect=["X-API-Secret"]),
+test\with_dummyserver\test_poolmanager.py:229:            assert data["Cookie"] == "foo=bar"
+test\with_dummyserver\test_poolmanager.py:235:                "cookie": "foo=bar",
+test\with_dummyserver\test_poolmanager.py:238:    def test_redirect_without_preload_releases_connection(self) -> None:
+test\with_dummyserver\test_poolmanager.py:240:            r = http.request("GET", f"{self.base_url}/redirect", preload_content=False)
+test\with_dummyserver\test_poolmanager.py:256:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:258:                redirect=False,
+test\with_dummyserver\test_poolmanager.py:265:                    f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:270:    def test_raise_on_redirect(self) -> None:
+test\with_dummyserver\test_poolmanager.py:274:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:275:                fields={"target": f"{self.base_url}/redirect?target={self.base_url}/"},
+test\with_dummyserver\test_poolmanager.py:276:                retries=Retry(total=None, redirect=1, raise_on_redirect=False),
+test\with_dummyserver\test_poolmanager.py:403:        headers.add("Cookie", "choc-chip")
+test\with_dummyserver\test_poolmanager.py:404:        headers.add("Cookie", "oatmeal-raisin")
+test\with_dummyserver\test_poolmanager.py:406:        added_headers = {"Cookie": "tim-tam"}
+test\with_dummyserver\test_poolmanager.py:416:                ["Cookie", "choc-chip"],
+test\with_dummyserver\test_poolmanager.py:417:                ["Cookie", "oatmeal-raisin"],
+test\with_dummyserver\test_poolmanager.py:418:                ["Cookie", "tim-tam"],
+test\with_dummyserver\test_poolmanager.py:543:    def test_top_level_request_with_redirect(self) -> None:
+test\with_dummyserver\test_poolmanager.py:546:            f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:548:            redirect=False,
+test\with_dummyserver\test_poolmanager.py:555:            f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:557:            redirect=True,
+test\with_dummyserver\test_poolmanager.py:564:        r = request("GET", f"{self.base_url}/redirect", retries=False)
+test\with_dummyserver\test_poolmanager.py:567:        r = request("GET", f"{self.base_url}/redirect", retries=3)
+test\with_dummyserver\test_poolmanager.py:574:            r = request("GET", f"{self.base_url}/redirect", timeout=2.5)
+test\with_dummyserver\test_poolmanager.py:580:                f"{self.base_url}/redirect",
+test\with_dummyserver\test_poolmanager.py:586:                redirect=True,
+test\with_dummyserver\test_poolmanager.py:599:            HTTPHeaderDict(cookie="foo, bar"),
+test\with_dummyserver\test_poolmanager.py:618:        header = HTTPHeaderDict(cookie="foo, bar")
+test\with_dummyserver\test_proxy_poolmanager.py:212:    def test_redirect(self) -> None:
+test\with_dummyserver\test_proxy_poolmanager.py:216:                f"{self.http_url}/redirect",
+test\with_dummyserver\test_proxy_poolmanager.py:218:                redirect=False,
+test\with_dummyserver\test_proxy_poolmanager.py:225:                f"{self.http_url}/redirect",
+test\with_dummyserver\test_proxy_poolmanager.py:232:    def test_cross_host_redirect(self) -> None:
+test\with_dummyserver\test_proxy_poolmanager.py:238:                    f"{self.http_url}/redirect",
+test\with_dummyserver\test_proxy_poolmanager.py:245:                f"{self.http_url}/redirect",
+test\with_dummyserver\test_proxy_poolmanager.py:253:    def test_cross_protocol_redirect(self) -> None:
+test\with_dummyserver\test_proxy_poolmanager.py:259:                    f"{self.http_url}/redirect",
+test\with_dummyserver\test_proxy_poolmanager.py:266:                f"{self.http_url}/redirect",
+test\with_dummyserver\test_socketlevel.py:67:class TestCookies(SocketDummyServerTestCase):
+test\with_dummyserver\test_socketlevel.py:68:    def test_multi_setcookie(self) -> None:
+test\with_dummyserver\test_socketlevel.py:69:        def multicookie_response_handler(listener: socket.socket) -> None:
+test\with_dummyserver\test_socketlevel.py:78:                b"Set-Cookie: foo=1\r\n"
+test\with_dummyserver\test_socketlevel.py:79:                b"Set-Cookie: bar=1\r\n"
+test\with_dummyserver\test_socketlevel.py:84:        self._start_server(multicookie_response_handler)
+test\with_dummyserver\test_socketlevel.py:87:            assert r.headers == {"set-cookie": "foo=1, bar=1"}
+test\with_dummyserver\test_socketlevel.py:88:            assert r.headers.getlist("set-cookie") == ["foo=1", "bar=1"]

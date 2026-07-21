@@ -1,0 +1,17 @@
+{
+  "control_header_preserved": true,
+  "control_header_received": "preserve-me",
+  "cookie_forwarded": false,
+  "cookie_received": null,
+  "destination_url": "http://127.0.0.1:65074/capture",
+  "initial_url": "http://localhost:65075/redirect",
+  "module_path": "C:\\Users\\maces\\Independent_Technical_Reviewer_Qualification\\reviews\\ITR-002-Hybrid\\verifier\\fixtures\\candidate\\package\\urllib3\\__init__.py",
+  "received_headers": {
+    "Accept-Encoding": "identity",
+    "Host": "127.0.0.1:65074",
+    "User-Agent": "python-urllib3/2.0.6",
+    "X-Review-Control": "preserve-me"
+  },
+  "response_status": 200,
+  "version": "2.0.6"
+}

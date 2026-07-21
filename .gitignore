@@ -6,3 +6,6 @@ reviews/ITR-001-PyJWT/artifact/__pycache__/
 reviews/ITR-001-PyJWT/artifact/jwt/__pycache__/
 reviews/ITR-001-PyJWT/artifact/tests/__pycache__/
 reviews/ITR-001-PyJWT/artifact/
+reviews/ITR-002-Hybrid/verifier/fixtures/baseline/package/
+reviews/ITR-002-Hybrid/verifier/fixtures/candidate/package/
+candidates/
