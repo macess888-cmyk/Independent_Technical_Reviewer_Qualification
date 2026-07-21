@@ -1,0 +1,12 @@
+ITR-003 OBSERVATION 001
+Date: 2026-07-21
+
+Condition:
+Collaboration can improve technical review while weakening or obscuring methodological independence.
+
+Candidate question:
+Can correction and comparison occur without collapsing authorship, authority, evidence boundaries, or independent judgment?
+
+Artifact selected: NO
+Method designed: NO
+Current classification: HOLD
